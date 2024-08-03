@@ -7,51 +7,88 @@
 
 # PART 1: Import Data ----------------------------------------------------
 consumers <- read_csv("data/processed/consumers.csv")
+filtered_consumers <- read_csv("data/processed/filtered_consumers.csv")
+
+# Part 2: Diversity Sankey Plot with ggsankey ----------------------------
 
 
-# PART 2: Data Preparation -----------------------------------------------
+plot_df <- filtered_consumers %>% 
+  make_long(marine_megafauna_group, consumer_class) %>% 
+  mutate(node = factor(node, levels = c(
+    "Armadillo", "Bat", "Sea Turtles", "Bird", 
+    "Sirenian", "Fissipeds","Pinnipeds", "Carnivore", 
+    "Rodent", "Marsupial", "Cetaceans", "Ungulate",  "Reptile")))
 
-#First, we need to filter out potential duplicate species due to reported taxonomic uncertainties. We will begin by looking at duplicates emerging from uncertainty in the marine megafauna taxa 
-
-#Create dataframe "known_megafauna" in which the megafauna species was reported
-known_megafauna <- consumers %>% 
-  filter(!is.na(marine_megafauna_species)) 
-
-#Create dataframe "unknown_megafauna" in which the megafauna species was NOT reported
-unknown_megafauna <- consumers %>% 
-  filter(is.na(marine_megafauna_species)) 
-
-#Determine the rows that may be potentially double-counting species interactions due to uncertainty in the taxonomic reporting of the megafauna species. For example, if a paper reports a coyote eating a whale and another paper reports a coyote eating a humpback whale, then the row that has less taxonomic certainty (a coyote eating a whale) will end up in the duplicate_megafauna dataframe. We will then remove these prior to analyses/visualization. 
-duplicate_megafauna <- unknown_megafauna %>%
-  #Join unknown_megafauna with "known_megafauna" to see if the combination of consumer species and megafauna group already exist within the "known_megafauna" file. If it does, we will exclude to prevent double-counting a species combination. If not, we will include the unique  interaction. 
-  left_join(known_megafauna[, c("marine_megafauna_group","marine_megafauna_common_name", "consumer_common_name")], by = c("marine_megafauna_group", "consumer_common_name"))%>%
-  #Flag potentially double counted interactions
-  mutate(double_counted = ifelse(is.na(marine_megafauna_common_name.y), FALSE, TRUE)) %>% 
-  #Filter for only potentially double counted interactions
-  filter(double_counted == TRUE) %>% 
-  #Remove irrelevant columns
-  select(-marine_megafauna_common_name.y, -double_counted) %>% 
-  #rename columns for anti_joining
-  rename(marine_megafauna_common_name = marine_megafauna_common_name.x) %>% 
-  #keep only distinct rows
-  distinct()
-
-
-#Next, we need to repeat the above process for situations in which the taxonomy of the consumer was uncertain. These are much less common and require some manual double-checking. 
-
-#Create dataframe "duplicate_consumer" in which the consumer species may be potentially double-counted
-duplicate_consumer <- consumers %>% 
-  #select all rows in which consumer_species is NA (no species reported)
-  filter(is.na(consumer_species)) %>% 
-  #keep only rows that may be duplicated (ID'ed via manual checking)
-  filter(consumer_common_name == "Monitor Lizard (Varanus spp.)" |
-         marine_megafauna_common_name == "California sea lion")
-
-#Filter duplicate_megafauna and duplicate_consumer rows from "consumers" dataframe
-filtered_consumers <- consumers %>% 
-  anti_join(double_counted) %>% 
-  anti_join(duplicate_consumer)
+ggplot(plot_df, aes(x = x, 
+                    next_x = next_x, 
+                    node = node, 
+                    next_node = next_node,
+                    fill = factor(node), 
+                    label = node)) +
+  geom_sankey() +
+  scale_fill_viridis_d(alpha = 0.85, drop = FALSE) +
+  theme_sankey(base_size = 10) +
+  theme(legend.position = "none") +
+  theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank())#+
+ #geom_sankey_label() #toggles whether ot not there are labels on each node
 
 
 
-# PART 2: Data Preparation -----------------------------------------------
+# Part 2: Diversity Sankey Plot with ggalluvial --------------------------------
+
+#Create color palette: 
+
+stratum_pal <- c("transparent", "#443983", "transparent", "#31688e", 
+                 "transparent", "#287c8e", "transparent", "#20a486", 
+                 "transparent", "#90d743","transparent",
+                 #Second Axis
+                 "#440154", "transparent", "#481f70","transparent", 
+                 "#3b528b", "transparent", "#21918c","transparent",
+                 "#35b779", "transparent", "#5ec962","transparent",
+                 "#c8e020", "transparent", "#fde725","transparent")
+
+flow_pal <- c("blank1" = "transparent", "blank2"="transparent", "blank3"= "transparent", 
+              "blank4"= "transparent", "blankA" = "transparent","blankB" = "transparent",
+              "Cetaceans" =  "#90d743", "Pinnipeds" = "#20a486", 
+              "Sirenian" = "#287c8e", "Fissiped" = "#31688e", 
+              "Sea Turtles" = "#443983")
+                 
+
+#Create dataframe of blank rows
+blank_rows <- tibble(
+  marine_megafauna_group = c("blank1", "blank2", "blank3", "blank4", rep("blankA", 4), rep("blankB", 3)),
+  consumer_class = c(rep("blankC", 4), "blank5", "blank6", "blank7", "blank8", "blank9", "blank10", "blank11"),
+  freq = rep(10, 11)
+)
+
+
+
+plot_df <- filtered_consumers %>% 
+  group_by(marine_megafauna_group, consumer_class) %>% 
+  summarise(freq = n(), .groups="drop") %>% 
+  bind_rows(blank_rows) %>% 
+  mutate(marine_megafauna_group = factor(marine_megafauna_group, 
+                                         levels = c("blankA","Cetaceans","blank1","Pinnipeds",
+                                                    "blank2", "Fissipeds","blank3",
+                                                    "Sirenian","blank4","Sea Turtles", "blankB")),
+         consumer_class = factor(consumer_class, levels = c("blankC", "Ungulate", "blank5",
+                                                            "Rodent","blank6","Reptile",
+                                                            "blank7","Marsupial", "blank8", 
+                                                            "Carnivore", "blank9", "Bird",
+                                                            "blank10","Bat","blank11", 
+                                                            "Armadillo")))
+
+
+ggplot(data=plot_df, aes(axis1=marine_megafauna_group, 
+                                    axis2=consumer_class,
+                                    y=freq))+
+  geom_alluvium(width = 1/12, curve_type = "sigmoid", aes(fill = marine_megafauna_group))+
+  scale_fill_manual(values = flow_pal, guide = "none") +
+  geom_stratum(width=1/12, fill = stratum_pal, color = "transparent")+
+#  geom_text(stat = "stratum", aes(label = after_stat(stratum))) + #Toggles labels on/off
+  theme_void()
+  
+  
+

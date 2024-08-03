@@ -53,7 +53,7 @@ duplicate_consumer <- consumers %>%
 
 #Filter duplicate_megafauna and duplicate_consumer rows from "consumers" dataframe
 filtered_consumers <- consumers %>% 
-  anti_join(double_counted) %>% 
+  anti_join(duplicate_megafauna) %>% 
   anti_join(duplicate_consumer)
 
 
@@ -66,6 +66,6 @@ subsidies <- Marine_Megafauna_Subsidies %>%
 # Part 4: Export cleaned datasets ----------------------------------------
 
 write_csv(consumers, "data/processed/consumers.csv")
-write_csv(filtered_consumers, "data/processed/consumers.csv")
+write_csv(filtered_consumers, "data/processed/filtered_consumers.csv")
 write_csv(subsidies, "data/processed/subsidies.csv")
 
