@@ -38,4 +38,6 @@ There are X primary R scripts required to run all console and data preparation, 
 
     -   Objects: lowercase words separated by an underline (e.g. marine_megafauna_subsidies)
 
+-   I output all non-final plots to the folder output/extra_plots and then, once they are combined and arranged in illustrator, the final figure is output into the main_figures folder. If no tweaks in illustrator need to be made, we will save the file directly into the main_figures folder. Figures for the supplemental will get output to the supplemental_figures folder or to the extra_plots folder if they need to be tweaked in illustrator.
+
 -   Do not hesitate to ask questions if you wanna help out!
