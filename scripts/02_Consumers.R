@@ -11,23 +11,31 @@ filtered_consumers <- read_csv("data/processed/filtered_consumers.csv")
 
 # Part 2: Diversity sankey plot with ggalluvial --------------------------------
 
-#Create color palette: 
+#Create color palettes: 
 
-stratum_pal <- c("transparent", "#443983", "transparent", "#31688e", 
-                 "transparent", "#287c8e", "transparent", "#20a486", 
-                 "transparent", "#90d743","transparent",
+stratum_pal <- c("transparent", "#7AD151FF", "transparent", "#22A884FF", 
+                 "transparent", "#2A788EFF", "transparent", "#414487FF", 
+                 "transparent", "#440154FF","transparent",
                  #Second Axis
-                 "#440154", "transparent", "#481f70","transparent", 
-                 "#3b528b", "transparent", "#21918c","transparent",
-                 "#35b779", "transparent", "#5ec962","transparent",
-                 "#c8e020", "transparent", "#fde725","transparent")
+                 "#932667FF", "transparent", "#AE305CFF","transparent", 
+                 "#C73E4CFF", "transparent", "#DD513AFF","transparent",
+                 "#ED6925FF", "transparent",  "#F8850FFF","transparent",
+                 "#FCA50AFF", "transparent", "#FAC62DFF","transparent")
+
+stratum_pal2 <- c("transparent", "grey80", "transparent", "grey80", 
+                 "transparent", "grey80", "transparent", "grey80", 
+                 "transparent", "grey80","transparent",
+                 #Second Axis
+                 "grey80", "transparent", "grey80", "transparent", 
+                 "grey80", "transparent", "grey80","transparent",
+                 "grey80", "transparent",  "grey80","transparent",
+                 "grey80", "transparent", "grey80","transparent")
 
 flow_pal <- c("blank1" = "transparent", "blank2"="transparent", "blank3"= "transparent", 
               "blank4"= "transparent", "blankA" = "transparent","blankB" = "transparent",
-              "Cetaceans" =  "#90d743", "Pinnipeds" = "#20a486", 
-              "Fissipeds" = "#287c8e", "Sirenian" = "#31688e", 
-              "Sea Turtles" = "#443983")
-                 
+              "Cetaceans" =  "#440154FF", "Pinnipeds" = "#414487FF", 
+              "Fissipeds" = "#2A788EFF", "Sirenian" = "#22A884FF", 
+              "Sea Turtles" = "#7AD151FF")            
 
 #Create dataframe of blank rows
 blank_rows <- tibble(
@@ -64,7 +72,7 @@ ggplot(data=plot_df, aes(axis1=marine_megafauna_group,
 #  geom_text(stat = "stratum", aes(label = after_stat(stratum))) + #Toggles labels on/off
   theme_void()
   
-ggsave("output/extra_plots/sankey_figure/diversity_sankey.png", width = )
+ggsave("output/extra_plots/sankey_figure/diversity_sankey.png", width = 4, height = 6, units = "in")
   
 
 # Part 3: Interaction type sankey plots with ggalluvial --------------------------------
@@ -95,9 +103,14 @@ ggplot(data=scav_sankey_df, aes(axis1=marine_megafauna_group,
   scale_fill_manual(values = c("grey80", "#003049"), #FALSE = "grey", TRUE = "orange
                     na.value = "transparent", #Fill NA values with transparent fill
                     guide="none") + #remove legend
-  geom_stratum(width=1/12, fill = stratum_pal, color = "transparent")+
+  geom_stratum(width=1/12, fill = stratum_pal2, color = "transparent")+
  #   geom_text(stat = "stratum", aes(label = after_stat(stratum))) + #Toggles labels on/off
   theme_void()
+
+
+ggsave("output/extra_plots/sankey_figure/scavenging_sankey.png", 
+       width = 2, height = 2.5, units = "in")
+
 
 #Part 3B: Predation sankey plot ####
 
@@ -125,9 +138,14 @@ ggplot(data=predation_sankey_df, aes(axis1=marine_megafauna_group,
   scale_fill_manual(values = c("grey80", "#D62828"), #FALSE = "grey", TRUE = "orange
                     na.value = "transparent", #Fill NA values with transparent fill
                     guide="none") + #remove legend
-  geom_stratum(width=1/12, fill = stratum_pal, color = "transparent")+
+  geom_stratum(width=1/12, fill = stratum_pal2, color = "transparent")+
   #   geom_text(stat = "stratum", aes(label = after_stat(stratum))) + #Toggles labels on/off
   theme_void()
+
+
+ggsave("output/extra_plots/sankey_figure/predation_sankey.png", 
+       width = 2, height = 2.5, units = "in")
+
 
 #Part 3C: Egg consumption sankey plot ####
 
@@ -155,9 +173,14 @@ ggplot(data=egg_sankey_df, aes(axis1=marine_megafauna_group,
   scale_fill_manual(values = c("grey80", "#F77F00"), #FALSE = "grey", TRUE = "orange
                     na.value = "transparent", #Fill NA values with transparent fill
                     guide="none") + #remove legend
-  geom_stratum(width=1/12, fill = stratum_pal, color = "transparent")+
+  geom_stratum(width=1/12, fill = stratum_pal2, color = "transparent")+
   #   geom_text(stat = "stratum", aes(label = after_stat(stratum))) + #Toggles labels on/off
   theme_void()
+
+
+ggsave("output/extra_plots/sankey_figure/egg_consumption_sankey.png", 
+       width = 2, height = 2.5, units = "in")
+
 
 
 #Part 3D: Placenta/excreta consumption sankey plot ####
@@ -184,13 +207,46 @@ placenta_excreta_sankey_df <- consumers %>%
 ggplot(data=placenta_excreta_sankey_df, aes(axis1=marine_megafauna_group, 
                                axis2=consumer_class,
                                y=freq))+
-  geom_alluvium(width = 1/12, curve_type = "sigmoid", alpha = .75,
+  geom_alluvium(width = 1/12, curve_type = "sigmoid", alpha = .75, color = "transparent",
                 aes(fill = consuming_placenta_excreta))+
-  scale_fill_manual(values = c("grey80", "#FCBF49"), #FALSE = "grey", TRUE = "orange
+  scale_fill_manual(values = c("grey80", "#219ebc"), #FALSE = "grey", TRUE = "orange
                     na.value = "transparent", #Fill NA values with transparent fill
                     guide="none") + #remove legend
-  geom_stratum(width=1/12, fill = stratum_pal, color = "transparent")+
+  geom_stratum(width=1/12, fill = stratum_pal2, color = "transparent")+
   #   geom_text(stat = "stratum", aes(label = after_stat(stratum))) + #Toggles labels on/off
   theme_void()
 
+
+ggsave("output/extra_plots/sankey_figure/placenta_excreta_sankey.png", 
+       width = 2, height = 2.5, units = "in")
+
+
+# Part 3E: Manually create color legend ---------
+
+# Define the custom data
+legend_data <- data.frame(
+  category = c("Scavenging", "Predation", "Egg Consumption", "Placenta and/or Excreta Consumption"),
+  x = c(1, 1, 1, 1),
+  y = c(1, 2, 3, 4)
+) %>% 
+  mutate(category = factor(category, levels = c("Scavenging", "Predation", "Egg Consumption", "Placenta and/or Excreta Consumption")))
+
+# Create the legend plot with square boxes
+temp_plot <- ggplot(legend_data, aes(x = x, y = y, fill = category)) +
+  geom_tile(aes(width = 0.8, height = 0.8)) +
+  scale_fill_manual(values = c(
+    "Scavenging" = "#003049",
+    "Predation" = "#D62828",
+    "Egg Consumption" = "#F77F00",
+    "Placenta and/or Excreta Consumption" = "#219ebc"), labels = c("Scavenging", "Predation", "Egg Consumption", "Placenta and/or\nExcreta Consumption")) +
+  labs(fill = "") +  
+  theme_void() +
+  theme(legend.position = "bottom")+
+  guides(fill=guide_legend(nrow=2,byrow=TRUE))
+temp_plot
+
+legend <- get_legend(temp_plot)
+as_ggplot(legend)
+
+ggsave("output/extra_plots/sankey_figure/legend.png", width = 7, height = 1, units = "in")
 

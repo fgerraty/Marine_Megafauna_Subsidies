@@ -5,6 +5,6 @@
 # Script 00: Load packages ###############################################
 #-------------------------------------------------------------------------
 
-packages<- c("tidyverse", "janitor", "ggthemes", "ggsankey", "ggalluvial")
+packages<- c("tidyverse", "janitor", "ggthemes", "ggalluvial", "ggpubr")
 
 pacman::p_load(packages, character.only = TRUE)
