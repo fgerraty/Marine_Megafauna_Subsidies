@@ -5,6 +5,6 @@
 # Script 00: Load packages ###############################################
 #-------------------------------------------------------------------------
 
-packages<- c("tidyverse", "janitor", "ggthemes", "ggalluvial", "ggpubr")
+packages<- c("tidyverse", "janitor", "ggalluvial", "ggpubr", "sf", "rnaturalearth", "rnaturalearthdata")
 
-pacman::p_load(packages, character.only = TRUE)
+pacman::p_load(packages, character.only = TRUE); rm(packages)
