@@ -14,13 +14,17 @@ There are two primary datasets associated with this repository:
 
 ------------------------------------------------------------------------
 
-There are X primary R scripts required to run all console and data preparation, data cleaning, and analysis steps:
+There are X primary R scripts required to run all console and data preparation, data cleaning, analysis, and visualization steps:
 
 -   **00_Packages.R** loads every package that is needed in following scripts. After running this script, all following scripts can be run independently.
 
 -   **01_Data_Clean.R** cleans and summarizes raw data files.
 
--   To be continued...
+-   **02_Data_Summary.R** summarizes processed data files and calculates values that are presented in Figure 1B.
+
+-   **03_Consumers.R** generates the sankey/alluvial plots in Figure 2.
+
+-   **04_Map.R** generates the maps and histograms in Figure 3.
 
 ------------------------------------------------------------------------
 
