@@ -2,7 +2,7 @@
 # Marine Megafauna Subsidies to Terrestrial Ecosystems ###################
 # Gerraty et al. (frankiegerraty@gmail.com; fgerraty@ucsc.edu) ###########
 ##########################################################################
-# Script 0X: Tally Number of Studies for each megafauna type + interaction type  #
+# Script 02: Summarize extracted data (# studies, # consumers, etc.)  ####
 #-------------------------------------------------------------------------
 
 
@@ -120,4 +120,11 @@ print(other_consumption_studies %>% #Use dataset filtered only for predation
 
 # PART 5: Marine Megafauna Vectored Nutrients ####
 
-unique(subsidies$type_of_marine_megafauna_subsidy)
+print(subsidies %>% 
+  filter(type_of_marine_megafauna_subsidy == "Marine Megafauna Vectored") %>% 
+  #Replace "Pinnipeds (and seabirds)" with "Pinnipeds"
+  mutate(marine_megafauna_group = if_else(marine_megafauna_group == "Pinnipeds (and seabirds)",
+                                           "Pinnipeds", 
+                         marine_megafauna_group)) %>% 
+  group_by(marine_megafauna_group) %>% 
+  summarise(study_count = n()))
