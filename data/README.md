@@ -62,7 +62,7 @@
 
     -   Source 3 Link - DOI link when available.
 
--   **Marine Megafauna Subsidies:** All of the case studies captured in our synthetic literature review that documented an ecological consequence in terrestrial ecosystems arising from (1) marine megafauna consumption by terrestrial consumers, (2) marine megafauna vectored nutrient subsidies to terrestrial ecosystems, or (3) indirect effects of marine megafauna.
+-   **Marine_Megafauna_Subsidies.csv -** All of the case studies captured in our synthetic literature review that documented an ecological consequence in terrestrial ecosystems arising from (1) marine megafauna consumption by terrestrial consumers, (2) marine megafauna vectored nutrient subsidies to terrestrial ecosystems, or (3) indirect effects of marine megafauna.
 
     [Columns]{.underline}
 
@@ -101,3 +101,17 @@
     -   Link - DOI link when available.
 
     -   Notes
+
+#### Folder "processed" houses the following data files
+
+-   **consumers.csv -** A complete, clean version of the *Marine_Megafauna_Consumers.csv*raw data file, which includes all of the terrestrial vertebrate consumers of marine megafauna captured in our synthetic literature review (see manuscript for review methods).
+
+    Columns in this file are the same as *Marine_Megafauna_Consumers.csv* except in this version they are all lowercase, with words separated by underlines (e.g. "Marine Megafauna Group" is now "marine_megafauna_group")
+
+-   **filtered_consumers.csv -** A second version of *consumers.csv*, except the rows in this file have been filtered to remove potentially duplicated combinations of marine megafauna species and terrestrial consumer species.
+
+    Potential duplicates arise when data sources do not report taxonomic levels to species level. In these cases, we removed the rows with lower taxonomic resolution. For example, if one article reported a coyote (*Canis latrans*) scavenging a whale carcass (species not reported) and another article reported a coyote scavenging a humpback whale (*Megaptera novaeangliae*) carcass, the row in which the whale was not identified to species level would be removed in this file.
+
+-   **subsidies.csv -** A complete, clean version of the *Marine_Megafauna_Subsidies.csv*raw data file, which includes all of the case studies captured in our synthetic literature review that documented an ecological consequence in terrestrial ecosystems arising from (1) marine megafauna consumption by terrestrial consumers, (2) marine megafauna vectored nutrient subsidies to terrestrial ecosystems, or (3) indirect effects of marine megafauna.
+
+    Columns in this file are the same as *Marine_Megafauna_Subsidies.csv* except in this version they are all lowercase, with words separated by underlines (e.g. "Marine Megafauna Group" is now "marine_megafauna_group")
