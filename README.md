@@ -2,7 +2,7 @@
 
 *FD Gerraty, et al. (In Prep)*
 
-We are assessing the historical, contemporary, and potential future importance of marine megafauna as global drivers of marine-to-terrestrial nutrient transfer. Here, we provide an overview of the datasets and scripts associated with this repository.
+We are assessing the historical, contemporary, and potential future importance of marine megafauna mediated nutrient transfer from marine to terrestrial ecosystems. Here, we provide an overview of the datasets and scripts associated with this repository.
 
 ------------------------------------------------------------------------
 
