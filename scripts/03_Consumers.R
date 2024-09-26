@@ -55,12 +55,11 @@ plot_df <- filtered_consumers %>%
                                          levels = c("blankA","Cetaceans","blank1","Pinnipeds",
                                                     "blank2", "Fissipeds","blank3",
                                                     "Sirenian","blank4","Sea Turtles", "blankB")),
-         consumer_class = factor(consumer_class, levels = c("blankC", "Ungulate", "blank5",
-                                                            "Rodent","blank6","Reptile",
-                                                            "blank7","Marsupial", "blank8", 
-                                                            "Carnivore", "blank9", "Bird",
-                                                            "blank10","Bat","blank11", 
-                                                            "Armadillo")))
+         consumer_class = factor(consumer_class, levels = c("blankC", "Reptile", "blank5", "Bird",
+                                                            "blank6","Marsupial","blank7","Armadillo",
+                                                             "blank8", "Rodent","blank9", "Ungulate",
+                                                            "blank10","Carnivore", "blank11","Bat"
+                                                            ))) 
 
 #Plot diversity sankey plot
 ggplot(data=plot_df, aes(axis1=marine_megafauna_group, 
@@ -71,8 +70,8 @@ ggplot(data=plot_df, aes(axis1=marine_megafauna_group,
                 aes(fill = marine_megafauna_group))+
   scale_fill_manual(values = flow_pal, guide = "none") +
   #axes with geom_stratum
-  geom_stratum(width=1/12, fill = stratum_pal, color = "transparent")+
-#  geom_text(stat = "stratum", aes(label = after_stat(stratum))) + #Toggles labels on/off, remove in final version of script
+  geom_stratum(width=1/12, fill = stratum_pal3, color = "transparent")+
+  geom_text(stat = "stratum", aes(label = after_stat(stratum))) + #Toggles labels on/off, remove in final version of script
   theme_void()
   
 ggsave("output/extra_plots/sankey_figure/diversity_sankey.png", width = 4, height = 6, units = "in")
