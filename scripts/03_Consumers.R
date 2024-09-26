@@ -56,10 +56,9 @@ plot_df <- filtered_consumers %>%
                                                     "blank2", "Fissipeds","blank3",
                                                     "Sirenian","blank4","Sea Turtles", "blankB")),
          consumer_class = factor(consumer_class, levels = c("blankC", "Reptile", "blank5", "Bird",
-                                                            "blank6","Marsupial","blank7","Armadillo",
-                                                             "blank8", "Rodent","blank9", "Ungulate",
-                                                            "blank10","Carnivore", "blank11","Bat"
-                                                            ))) 
+                                                            "blank11","Bat", "blank10","Carnivore",
+                                                            "blank9", "Ungulate","blank8", "Rodent",
+                                                            "blank7","Armadillo", "blank6","Marsupial"))) 
 
 #Plot diversity sankey plot
 ggplot(data=plot_df, aes(axis1=marine_megafauna_group, 
@@ -71,7 +70,7 @@ ggplot(data=plot_df, aes(axis1=marine_megafauna_group,
   scale_fill_manual(values = flow_pal, guide = "none") +
   #axes with geom_stratum
   geom_stratum(width=1/12, fill = stratum_pal3, color = "transparent")+
-  geom_text(stat = "stratum", aes(label = after_stat(stratum))) + #Toggles labels on/off, remove in final version of script
+#  geom_text(stat = "stratum", aes(label = after_stat(stratum))) + #Toggles labels on/off, remove in final version of script
   theme_void()
   
 ggsave("output/extra_plots/sankey_figure/diversity_sankey.png", width = 4, height = 6, units = "in")
@@ -85,16 +84,15 @@ scav_sankey_df <- consumers %>%
   group_by(marine_megafauna_group, consumer_class, scavenging) %>% 
   summarise(freq = n(), .groups="drop") %>% 
   bind_rows(blank_rows) %>% 
+  #Turn axis variables into factors
   mutate(marine_megafauna_group = factor(marine_megafauna_group, 
                                          levels = c("blankA","Cetaceans","blank1","Pinnipeds",
                                                     "blank2", "Fissipeds","blank3",
                                                     "Sirenian","blank4","Sea Turtles", "blankB")),
-         consumer_class = factor(consumer_class, levels = c("blankC", "Ungulate", "blank5",
-                                                            "Rodent","blank6","Reptile",
-                                                            "blank7","Marsupial", "blank8", 
-                                                            "Carnivore", "blank9", "Bird",
-                                                            "blank10","Bat","blank11", 
-                                                            "Armadillo")))
+         consumer_class = factor(consumer_class, levels = c("blankC", "Reptile", "blank5", "Bird",
+                                                            "blank11","Bat", "blank10","Carnivore",
+                                                            "blank9", "Ungulate","blank8", "Rodent",
+                                                            "blank7","Armadillo", "blank6","Marsupial"))) 
 
 
 ggplot(data=scav_sankey_df, aes(axis1=marine_megafauna_group, 
@@ -124,12 +122,10 @@ predation_sankey_df <- consumers %>%
                                          levels = c("blankA","Cetaceans","blank1","Pinnipeds",
                                                     "blank2", "Fissipeds","blank3",
                                                     "Sirenian","blank4","Sea Turtles", "blankB")),
-         consumer_class = factor(consumer_class, levels = c("blankC", "Ungulate", "blank5",
-                                                            "Rodent","blank6","Reptile",
-                                                            "blank7","Marsupial", "blank8", 
-                                                            "Carnivore", "blank9", "Bird",
-                                                            "blank10","Bat","blank11", 
-                                                            "Armadillo")))
+         consumer_class = factor(consumer_class, levels = c("blankC", "Reptile", "blank5", "Bird",
+                                                            "blank11","Bat", "blank10","Carnivore",
+                                                            "blank9", "Ungulate","blank8", "Rodent",
+                                                            "blank7","Armadillo", "blank6","Marsupial"))) 
 
 
 ggplot(data=predation_sankey_df, aes(axis1=marine_megafauna_group, 
@@ -159,12 +155,10 @@ egg_sankey_df <- consumers %>%
                                          levels = c("blankA","Cetaceans","blank1","Pinnipeds",
                                                     "blank2", "Fissipeds","blank3",
                                                     "Sirenian","blank4","Sea Turtles", "blankB")),
-         consumer_class = factor(consumer_class, levels = c("blankC", "Ungulate", "blank5",
-                                                            "Rodent","blank6","Reptile",
-                                                            "blank7","Marsupial", "blank8", 
-                                                            "Carnivore", "blank9", "Bird",
-                                                            "blank10","Bat","blank11", 
-                                                            "Armadillo")))
+         consumer_class = factor(consumer_class, levels = c("blankC", "Reptile", "blank5", "Bird",
+                                                            "blank11","Bat", "blank10","Carnivore",
+                                                            "blank9", "Ungulate","blank8", "Rodent",
+                                                            "blank7","Armadillo", "blank6","Marsupial"))) 
 
 
 ggplot(data=egg_sankey_df, aes(axis1=marine_megafauna_group, 
@@ -198,12 +192,11 @@ placenta_excreta_sankey_df <- consumers %>%
                                          levels = c("blankA","Cetaceans","blank1","Pinnipeds",
                                                     "blank2", "Fissipeds","blank3",
                                                     "Sirenian","blank4","Sea Turtles", "blankB")),
-         consumer_class = factor(consumer_class, levels = c("blankC", "Ungulate", "blank5",
-                                                            "Rodent","blank6","Reptile",
-                                                            "blank7","Marsupial", "blank8", 
-                                                            "Carnivore", "blank9", "Bird",
-                                                            "blank10","Bat","blank11", 
-                                                            "Armadillo")))
+         consumer_class = factor(consumer_class, levels = c("blankC", "Reptile", "blank5", "Bird",
+                                                            "blank11","Bat", "blank10","Carnivore",
+                                                            "blank9", "Ungulate","blank8", "Rodent",
+                                                            "blank7","Armadillo", "blank6","Marsupial"))) 
+
 
 
 ggplot(data=placenta_excreta_sankey_df, aes(axis1=marine_megafauna_group, 
@@ -221,37 +214,4 @@ ggplot(data=placenta_excreta_sankey_df, aes(axis1=marine_megafauna_group,
 
 ggsave("output/extra_plots/sankey_figure/placenta_excreta_sankey.png", 
        width = 2, height = 2.5, units = "in")
-
-
-# Part 3E: Manually create color legend for interaction type plots ---------
-
-# Define custom data
-legend_data <- data.frame(
-  category = c("Scavenging", "Predation", "Egg Consumption", "Placenta and/or Excreta Consumption"),
-  x = c(1, 1, 1, 1),
-  y = c(1, 2, 3, 4)
-) %>% 
-  mutate(category = factor(category, levels = c("Scavenging", "Predation", "Egg Consumption", "Placenta and/or Excreta Consumption")))
-
-# Create plot to extract legend from
-temp_plot <- ggplot(legend_data, aes(x = x, y = y, fill = category)) +
-  geom_tile(aes(width = 0.8, height = 0.8)) +
-  scale_fill_manual(values = c(
-    "Scavenging" = "#003049",
-    "Predation" = "#D62828",
-    "Egg Consumption" = "#F77F00",
-    "Placenta and/or Excreta Consumption" = "#219ebc"), 
-    labels = c("Scavenging", "Predation", 
-               "Egg Consumption", "Placenta and/or\nExcreta Consumption")) +
-  labs(fill = "") +  
-  theme_void() +
-  theme(legend.position = "bottom")+
-  guides(fill=guide_legend(nrow=2,byrow=TRUE)) #Make legend into two rows
-
-#extract legend using ggpubr::get_legend
-legend <- get_legend(temp_plot)
-as_ggplot(legend) #turn back into ggplot
-
-#Export legend
-ggsave("output/extra_plots/sankey_figure/legend.png", width = 7, height = 1, units = "in")
 
