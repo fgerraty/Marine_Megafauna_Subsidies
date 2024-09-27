@@ -10,121 +10,46 @@
 consumers <- read_csv("data/processed/consumers.csv")
 subsidies <- read_csv("data/processed/subsidies.csv") 
 
-# PART 2: Predation: Tally number of studies and consumers for each megafauna group ------
+# PART 2: Tally number of consumers for each megafauna group and interaction type ------
 
-predation_studies <- consumers %>% #We will use the "consumers" dataset, which includes all studies with extracted data
-  #First, lump sea otters (Fissipeds) and Sirenians (Manatees and Dugongs) together into one marine megafauna group
-  mutate(marine_megafauna_group = if_else(marine_megafauna_group %in% c("Fissipeds", "Sirenian"), 
-                                          "Fissiped or Sirenian", 
-                                          marine_megafauna_group)) %>% 
-  #Second, filter for only species pairs in which predation was documented
-  filter(predation == TRUE)
+interactions <- consumers %>% #We will use the "consumers" dataset (see data dictionary for more details)
+  mutate(other_consumption = if_else(consuming_placenta == TRUE | 
+                                       consuming_excreta == TRUE | 
+                                       consuming_eggs == TRUE, TRUE, FALSE)) %>% 
+  select(marine_megafauna_group, consumer_common_name, predation, scavenging, other_consumption) %>% 
+  pivot_longer(cols = c(predation, scavenging, other_consumption), 
+               names_to = "interaction_type", 
+               values_to = "interaction_occurred") %>% 
+  # Filter for rows where the interaction occurred
+  filter(interaction_occurred == TRUE) %>%
+  select(-interaction_occurred) %>% # Remove the logical column
+  unique() %>%  # Remove duplicates
+  group_by(marine_megafauna_group, interaction_type) %>%
+  summarise(consumer_species_count = n(), .groups = 'drop') %>% 
+  #Turn variables into factors for plotting
+  mutate(marine_megafauna_group = factor(marine_megafauna_group, 
+                                         levels = c("Sea Turtles", "Sirenian","Fissipeds",  "Pinnipeds","Cetaceans")),
+         interaction_type = factor(interaction_type, 
+                                   levels = c("predation", "scavenging", "other_consumption")))
 
-#Assess number of studies documenting predation for each megafauna group
-print(predation_studies %>%  #Use dataset filtered only for predation
-  select(1,15:29) %>%  #Only keep marine megafauna group and sources
-  #Pivot longer to vertically join sources #1, #2, and #3
-  pivot_longer(
-    cols = starts_with("source_"), # Select all columns that start with "source_"
-    names_to = c("source", ".value"), # "source" will hold the source number (1, 2, 3)
-    names_pattern = "source_(\\d+)_(.*)") %>%  # Regular expression to extract the source number and column name
-  #Drop blank rows
-  drop_na(type) %>% 
-  #Filter for rows with "Predation" or "predation" in the interaction_type column (the source must show predation)
-  filter(str_detect(interaction_type, "Predation")) %>% 
-  group_by(marine_megafauna_group) %>%   #Group by megafauna group
-  distinct(title, .keep_all = TRUE) %>%  # Filter for studies unique to the megafauna group, keeping unique values of other variables
-summarise(case_study_count = n(), .groups = "drop")) #Count total number of studies
+# PART 3: Plot ------
 
-
-#Assess number of consumers documented hunting each megafauna group         
-print(predation_studies %>% #Use dataset filtered only for predation
-        select(marine_megafauna_group, consumer_species) %>% #only keep marine megafauna group and species columns
-        unique() %>% #remove duplicates (i.e. same consumer species different megafauna species in same group)
-        group_by(marine_megafauna_group) %>% #Group by megafauna group
-        summarise(consumer_species_count = n())) #Print count of unique consumers
+ggplot(interactions, aes(x=interaction_type, y=consumer_species_count, fill = marine_megafauna_group))+
+  geom_bar(position = "stack", stat = "identity")+
+  coord_flip()+
 
 
 
 
-# PART 3: Scavenging: Tally number of consumers and studies for each megafauna group ------
 
-scavenging_studies <- consumers %>% #We will use the "consumers" dataset, which includes all studies with collected data
-  #First, lump sea otters (Fissipeds) and Sirenians (Manatees and Dugongs) together into one marine megafauna group
-  mutate(marine_megafauna_group = if_else(marine_megafauna_group %in% c("Fissipeds", "Sirenian"), 
-                                          "Fissiped or Sirenian", 
-                                          marine_megafauna_group)) %>% 
-  #Second, filter for only species pairs in which predation was documented
-  filter(scavenging == TRUE)
-
-#Assess number of studies documenting scavenging for each megafauna group
-print(scavenging_studies %>%  #Use dataset filtered only for predation
-        select(1,15:29) %>%  #Only keep marine megafauna group and sources
-        #Pivot longer to vertically join sources #1, #2, and #3
-        pivot_longer(
-          cols = starts_with("source_"), # Select all columns that start with "source_"
-          names_to = c("source", ".value"), # "source" will hold the source number (1, 2, 3)
-          names_pattern = "source_(\\d+)_(.*)") %>%  # Regular expression to extract the source number and column name
-        #Drop blank rows
-        drop_na(type) %>% 
-        #Filter for rows with "Scavenging" in the interaction_type column (the source must show scavenging)
-        filter(str_detect(interaction_type, "Scavenging")) %>% 
-        group_by(marine_megafauna_group) %>%   #Group by megafauna group
-        distinct(title, .keep_all = TRUE) %>%  # Filter for studies unique to the megafauna group, keeping unique values of other variables
-        summarise(case_study_count = n(), .groups = "drop")) #Count total number of studies
-
-
-#Assess number of consumers of each megafauna group         
-print(scavenging_studies %>% #Use dataset filtered only for predation
-        select(marine_megafauna_group, consumer_species) %>% #only keep marine megafauna group and species columns
-        unique() %>% #remove duplicates (i.e. same consumer species different megafauna species in same group)
-        group_by(marine_megafauna_group) %>% #Group by megafauna group
-        summarise(consumer_species_count = n())) #Print count of unique consumers
-
-
-
-# PART 4: Consuming eggs, placenta, or excreta: Tally number of consumers and studies for each megafauna group ------
-
-other_consumption_studies <- consumers %>% #We will use the "consumers" dataset, which includes all studies with collected data
-  #First, lump sea otters (Fissipeds) and Sirenians (Manatees and Dugongs) together into one marine megafauna group
-  mutate(marine_megafauna_group = if_else(marine_megafauna_group %in% c("Fissipeds", "Sirenian"), 
-                                          "Fissiped or Sirenian", 
-                                          marine_megafauna_group)) %>% 
-  #Second, filter for only species pairs in which any of the "other" consumption types was documented
-  filter(consuming_placenta == TRUE | consuming_excreta == TRUE | consuming_eggs == TRUE)
-
-
-#Assess number of studies documenting other consumption types for each megafauna group
-print(other_consumption_studies %>%  #Use dataset filtered only for other consumption types
-        select(1,15:29) %>%  #Only keep marine megafauna group and sources
-        #Pivot longer to vertically join sources #1, #2, and #3
-        pivot_longer(
-          cols = starts_with("source_"), # Select all columns that start with "source_"
-          names_to = c("source", ".value"), # "source" will hold the source number (1, 2, 3)
-          names_pattern = "source_(\\d+)_(.*)") %>%  # Regular expression to extract the source number and column name
-        #Drop blank rows
-        drop_na(type) %>% 
-        #Filter for rows with "Consuming placenta", "Consuming excreta" or "Consuming eggs" in the interaction_type column
-        filter(str_detect(interaction_type, "Consuming placenta|Consuming excreta|Consuming eggs")) %>% 
-        group_by(marine_megafauna_group) %>%   #Group by megafauna group
-        distinct(title, .keep_all = TRUE) %>%  # Filter for studies unique to the megafauna group, keeping unique values of other variables
-        summarise(case_study_count = n(), .groups = "drop")) #Count total number of studies
-
-
-#Assess number of consumers of each megafauna group         
-print(other_consumption_studies %>% #Use dataset filtered only for predation
-        select(marine_megafauna_group, consumer_species) %>% #only keep marine megafauna group and species columns
-        unique() %>% #remove duplicates (i.e. same consumer species different megafauna species in same group)
-        group_by(marine_megafauna_group) %>% #Group by megafauna group
-        summarise(consumer_species_count = n())) #Print count of unique consumers
 
 # PART 5: Marine Megafauna Vectored Nutrients ####
 
 print(subsidies %>% 
-  filter(type_of_marine_megafauna_subsidy == "Marine Megafauna Vectored") %>% 
-  #Replace "Pinnipeds (and seabirds)" with "Pinnipeds"
-  mutate(marine_megafauna_group = if_else(marine_megafauna_group == "Pinnipeds (and seabirds)",
-                                           "Pinnipeds", 
-                         marine_megafauna_group)) %>% 
-  group_by(marine_megafauna_group) %>% 
-  summarise(study_count = n()))
+        filter(type_of_marine_megafauna_subsidy == "Marine Megafauna Vectored") %>% 
+        #Replace "Pinnipeds (and seabirds)" with "Pinnipeds"
+        mutate(marine_megafauna_group = if_else(marine_megafauna_group == "Pinnipeds (and seabirds)",
+                                                "Pinnipeds", 
+                                                marine_megafauna_group)) %>% 
+        group_by(marine_megafauna_group) %>% 
+        summarise(study_count = n()))
