@@ -46,7 +46,7 @@ duplicate_megafauna <- unknown_megafauna %>%
 #Create dataframe "duplicate_consumer" in which the consumer species may be potentially double-counted
 duplicate_consumer <- consumers %>% 
   #select all rows in which consumer_species is NA (no species reported)
-  filter(is.na(consumer_species)) %>% 
+  filter(is.na(consumer_species))%>% 
   #keep only rows that may be duplicated (ID'ed via manual checking)
   filter(consumer_common_name == "Monitor Lizard (Varanus spp.)" |
            marine_megafauna_common_name == "California sea lion")
