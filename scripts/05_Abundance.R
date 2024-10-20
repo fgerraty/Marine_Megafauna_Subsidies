@@ -44,10 +44,6 @@ panel_A
 
 # PART 2: Abundance Plot Panel B -----------------------------------------
 
-pal <- c("#7AD151FF", "#1fa187","#3b538c","#663366")
-  
-                  
-
 B_df <- abundance %>% 
   #Select relevant columns 
   select(species_group, all_species_percent_decline_then_to_low, percent_decline_then_to_now) %>% 
@@ -71,7 +67,7 @@ B_df <- abundance %>%
 
 
 
-ggplot()+
+panel_B <- ggplot()+
   
   #First we are going to create the first layer = lowest estimated abundance / greatest decline. 
   
@@ -79,12 +75,11 @@ ggplot()+
   geom_bar(data = filter(B_df, period == "low"), 
            aes(x=species_group, y=mean),
            stat = "identity",
-           fill = pal, 
-           alpha = .5)+
+           fill = "grey70")+
   #Errorbars (layer 1)
   geom_errorbar(data = filter(B_df, period == "low"), 
                 aes(x=species_group, ymin = mean-se, ymax = mean+se),
-                color = "black",
+                color = "grey30",
                 width = .1)+
   
   #Next, we are going to create the second layer = current/recent estimated abundance
@@ -93,7 +88,7 @@ ggplot()+
   geom_bar(data = filter(B_df, period == "now"), 
            aes(x=species_group, y=mean),
            stat = "identity",
-           fill = pal)+
+           fill = "grey40")+
   #Errorbars (layer 2)
   geom_errorbar(data = filter(B_df, period == "now"), 
                 aes(x=species_group, ymin = mean-se, ymax = mean+se),
@@ -111,41 +106,31 @@ ggplot()+
   labs(x="", y="Percent decline from historical baseline")+
   theme(panel.border = element_rect(colour = "black", fill=NA, linewidth=1.5))
 
+#Make legend for panel B ------------------------------------------------------
+
+legend_plot <- ggplot(B_df, aes(x = mean, fill = factor(period, 
+                                                        levels = c("now", "low"))))+
+  geom_bar() +
+  scale_fill_manual(
+    values = c("low" = "grey70", "now" = "grey40"),
+    labels = c("Most recent abundance", "Lowest abundance")) +
+  labs(fill = "")+
+  theme(legend.position = "bottom")
+
+legend_B <- get_legend(legend_plot) %>% 
+            as_ggplot()
+
+legend_B
 
 
 
+ggsave("output/extra_plots/abundance_A.png", panel_A, 
+       width = 5, height = 4, units = "in")
 
 
+ggsave("output/extra_plots/abundance_B.png", panel_B, 
+       width = 4.5, height = 4, units = "in")
 
-# Scraps #############################
-
-
-df2 <- abundance %>% 
-  select(record_lotze_worm, species_group, percent_left_low, percent_left_now) %>% 
-  #Combine sea otters and sirenian records
-  mutate(species_group = if_else(species_group %in% c("Otters", "Sirenia"), "Fissipeds and Sirenians", species_group)) %>% 
-  #Rename columns to be more tidy
-  rename(low = percent_left_low, 
-         now = percent_left_now) %>% 
-  pivot_longer(cols = c(low, now), 
-               values_to = "percent_left", names_to="period") %>% 
-  mutate(period = factor(period, levels = c("low", "now")))
-
-  
-
-
-ggplot(df2, mapping = aes(x=period, y=percent_left))+
-  geom_path(aes(group = record_lotze_worm, color=species_group),
-            linewidth = 0.4, alpha = 0.3, 
-            position = position_jitter(width = 0.05, seed = 999))+
-  geom_point(aes(color=species_group), alpha = .3, shape = 16,
-             position = position_jitter(width = 0.05, seed = 999))+
-  theme_classic()+
-  stat_summary(geom = "pointrange", fun.data = "mean_cl_boot",
-               color = "black")
-
-  
-
-
-#Tweaking
+ggsave("output/extra_plots/abundance_B_legend.png", legend_B, 
+       width = 4, height = 1, units = "in")
 
