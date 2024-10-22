@@ -65,46 +65,22 @@ B_df <- abundance %>%
             .groups = "drop")
 
 
+#Plot panel B
 
-
-panel_B <- ggplot()+
-  
-  #First we are going to create the first layer = lowest estimated abundance / greatest decline. 
-  
-  #Bar plot (layer 1)
-  geom_bar(data = filter(B_df, period == "low"), 
-           aes(x=species_group, y=mean),
-           stat = "identity",
-           fill = "grey70")+
-  #Errorbars (layer 1)
-  geom_errorbar(data = filter(B_df, period == "low"), 
-                aes(x=species_group, ymin = mean-se, ymax = mean+se),
-                color = "grey30",
-                width = .1)+
-  
-  #Next, we are going to create the second layer = current/recent estimated abundance
-  
-  #Bar plot (layer 2)
-  geom_bar(data = filter(B_df, period == "now"), 
-           aes(x=species_group, y=mean),
-           stat = "identity",
-           fill = "grey40")+
-  #Errorbars (layer 2)
-  geom_errorbar(data = filter(B_df, period == "now"), 
-                aes(x=species_group, ymin = mean-se, ymax = mean+se),
-                color = "black",
-                width = .1)+
-  
-#  geom_text(data = B_df, aes(label = n, 
-#                              x=species_group,
-#                              y = 108))+
-  
+panel_B <- ggplot(B_df, aes(x=species_group, y=mean, fill = period))+
+  geom_bar(stat="identity", position = "dodge")+  
+  geom_errorbar(aes(ymin = mean-se, ymax = mean+se), 
+                position = position_dodge(width = 1), 
+                width = .2, color = "grey20")+
   coord_flip()+
   scale_x_discrete(labels = c("Sea turtles","Fissipeds and\nsirenians","Pinnipeds","Cetaceans"))+
   scale_y_continuous(breaks = c(0,25,50,75,100))+
+  scale_fill_manual(values = c("grey70", "grey40"))+
   theme_few()+
   labs(x="", y="Percent decline from historical baseline")+
-  theme(panel.border = element_rect(colour = "black", fill=NA, linewidth=1.5))
+  theme(panel.border = element_rect(colour = "black", fill=NA, linewidth=1.5),
+        legend.position = "none")
+
 
 #Make legend for panel B ------------------------------------------------------
 
