@@ -37,10 +37,13 @@ subsidies_map <- subsidies %>%
     #Remove carcasses as habitat from megafauna subsidy type      
     type_of_marine_megafauna_subsidy = if_else(type_of_marine_megafauna_subsidy == "Marine Megafauna as Food, Marine Megafauna Carcasses as Habitat",
                                                "Marine Megafauna as Food",
-                                               type_of_marine_megafauna_subsidy)     
-  ) %>% 
+                                               type_of_marine_megafauna_subsidy),
+  #Group "Type of Ecological Effect" column for plotting
+  type_of_ecological_effect = if_else(type_of_ecological_effect %in% c("Consumer behavior", "Consumer health",
+                                                  "Consumer abundance", "Community- and ecosystem-level"), type_of_ecological_effect, "Multiple or other effects"),
+  
   #Turn into factor for plotting
-  mutate(type_of_marine_megafauna_subsidy = factor(type_of_marine_megafauna_subsidy, 
+  type_of_marine_megafauna_subsidy = factor(type_of_marine_megafauna_subsidy, 
                                                    levels = c("Marine Megafauna as Food", 
                                                               "Marine Megafauna Vectored",
                                                               "Indirect Effects")))

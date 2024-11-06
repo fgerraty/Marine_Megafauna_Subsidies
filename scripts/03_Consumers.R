@@ -69,7 +69,7 @@ ggplot(data=plot_df, aes(axis1=marine_megafauna_group,
                 aes(fill = marine_megafauna_group))+
   scale_fill_manual(values = flow_pal, guide = "none") +
   #axes with geom_stratum
-  geom_stratum(width=1/12, fill = stratum_pal3, color = "transparent")+
+  geom_stratum(width=1/12, fill = stratum_pal, color = "transparent")+
 #  geom_text(stat = "stratum", aes(label = after_stat(stratum))) + #Toggles labels on/off, remove in final version of script
   theme_void()
   
@@ -110,7 +110,6 @@ ggplot(data=scav_sankey_df, aes(axis1=marine_megafauna_group,
 
 ggsave("output/extra_plots/sankey_figure/scavenging_sankey.png", 
        width = 2, height = 2.5, units = "in")
-
 
 # Part 3B: Predation sankey plot ####
 
@@ -176,7 +175,6 @@ ggplot(data=egg_sankey_df, aes(axis1=marine_megafauna_group,
 
 ggsave("output/extra_plots/sankey_figure/egg_consumption_sankey.png", 
        width = 2, height = 2.5, units = "in")
-
 
 
 # Part 3D: Placenta/excreta consumption sankey plot ####
