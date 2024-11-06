@@ -80,7 +80,7 @@ ggsave("output/extra_plots/sankey_figure/diversity_sankey.png", width = 4, heigh
 
 # Part 3A: Scavenging sankey plot ####
 
-scav_sankey_df <- consumers %>% 
+scav_sankey_df <- filtered_consumers %>% 
   group_by(marine_megafauna_group, consumer_class, scavenging) %>% 
   summarise(freq = n(), .groups="drop") %>% 
   bind_rows(blank_rows) %>% 
@@ -113,7 +113,7 @@ ggsave("output/extra_plots/sankey_figure/scavenging_sankey.png",
 
 # Part 3B: Predation sankey plot ####
 
-predation_sankey_df <- consumers %>% 
+predation_sankey_df <- filtered_consumers %>% 
   group_by(marine_megafauna_group, consumer_class, predation) %>% 
   summarise(freq = n(), .groups="drop") %>% 
   bind_rows(blank_rows) %>% 
@@ -146,7 +146,7 @@ ggsave("output/extra_plots/sankey_figure/predation_sankey.png",
 
 # Part 3C: Egg consumption sankey plot ####
 
-egg_sankey_df <- consumers %>% 
+egg_sankey_df <- filtered_consumers %>% 
   group_by(marine_megafauna_group, consumer_class, consuming_eggs) %>% 
   summarise(freq = n(), .groups="drop") %>% 
   bind_rows(blank_rows) %>% 
@@ -179,7 +179,7 @@ ggsave("output/extra_plots/sankey_figure/egg_consumption_sankey.png",
 
 # Part 3D: Placenta/excreta consumption sankey plot ####
 
-placenta_excreta_sankey_df <- consumers %>% 
+placenta_excreta_sankey_df <- filtered_consumers %>% 
   mutate(consuming_placenta_excreta = if_else(consuming_placenta == TRUE | 
                                               consuming_excreta == TRUE, 
                                               TRUE, FALSE)) %>% 

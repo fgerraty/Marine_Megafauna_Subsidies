@@ -1,11 +1,14 @@
 #WSN PLOTS! 
 
+ggsave("temp/WSN/sankey_figure/sankey1.png", width = 4, height = 6, units = "in")
 
+ggsave("temp/WSN/sankey_figure/sankey2.png", width = 4, height = 6, units = "in")
 
+ggsave("temp/WSN/sankey_figure/sankey3.png", width = 4, height = 6, units = "in")
 
+ggsave("temp/WSN/sankey_figure/sankey4.png", width = 4, height = 6, units = "in")
 
-
-
+ggsave("temp/WSN/sankey_figure/sankey5.png", width = 4, height = 6, units = "in")
 
 
 
