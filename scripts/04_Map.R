@@ -46,7 +46,10 @@ subsidies_map <- subsidies %>%
   type_of_marine_megafauna_subsidy = factor(type_of_marine_megafauna_subsidy, 
                                                    levels = c("Marine Megafauna as Food", 
                                                               "Marine Megafauna Vectored",
-                                                              "Indirect Effects")))
+                                                              "Indirect Effects")),
+  type_of_ecological_effect = factor(type_of_ecological_effect, levels = c("Consumer health","Consumer behavior",
+                                                                           "Consumer abundance", "Community- and ecosystem-level","Multiple or other effects"
+                                                                           )))
 
 #Create SF object
 subsidies_map_sf <- st_as_sf(subsidies_map, 

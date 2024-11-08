@@ -30,10 +30,8 @@ ggplot() +
           color = "transparent",
           pch=21)+
   coord_sf(crs = st_crs('ESRI:54030'))+
-#  scale_fill_manual(values = c("#663366", "#3b538c", 
-#                               "#1d918c", "grey35", "#7AD151FF"), 
-#                    labels = c("Cetaceans", "Pinnipeds", "Sea Otters",
-#                               "Marine Mammals\n(multiple groups\nor unknown)", "Sea Turtles"))+
+  scale_fill_manual(values = c("#FFB000", "#FE6100", 
+                               "#DC267F", "#785EF0", "#648FFF"))+
   theme_minimal()+
   theme(legend.position = "none")
 
@@ -68,14 +66,12 @@ effects_histogram <- ggplot(data=subsidies_map, aes(x=decimal_latitude, fill = t
   geom_vline(xintercept = seq(-90, 90, by = 15), color = "white")+  # Add vertical lines
   scale_x_continuous(breaks=c(-90,-75,-60,-45,-30,-15,0,15,30,45,60,75,90),
                      expand = c(0, 0))+
-#  scale_fill_manual(values = c("#663366", "#3b538c", 
-#                               "#1d918c", "grey35", "#7AD151FF"), 
-#                    labels = c("Cetaceans", "Pinnipeds", "Sea Otters",
-#                               "Marine Mammals (unknown)", "Sea Turtles"))+
+  scale_fill_manual(values = c("#FFB000", "#FE6100", 
+                               "#DC267F", "#785EF0", "#648FFF"))+
   labs(fill = "Type of Ecological Effect")+
   coord_flip()+  # Flips the chart to be horizontal
   theme_classic() +
-  theme(legend.box.background = element_rect(colour = "black", linewidth = 2))+
+ # theme(legend.box.background = element_rect(colour = "black", linewidth = 2))+
   labs(x = "Latitude", y= "# Studies")
 effects_histogram
 
