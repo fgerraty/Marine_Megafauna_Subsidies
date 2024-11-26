@@ -32,7 +32,7 @@ There are four primary R scripts required to run all console and data preparatio
 
 **Notes to Collaborators:**
 
--   Clone (don't fork) the github repo to collaborate.
+-   Branch the github repo to collaborate.
 
 -   Annotate your code!
 
@@ -46,4 +46,4 @@ There are four primary R scripts required to run all console and data preparatio
 
 -   I output all non-final plots to the folder output/extra_plots and then, once they are combined and arranged in illustrator, the final figure is output into the main_figures folder. If no tweaks in illustrator need to be made, we will save the file directly into the main_figures folder. Figures for the supplemental will get output to the supplemental_figures folder or to the extra_plots folder if they need to be tweaked in illustrator.
 
--   Do not hesitate to ask questions if you wanna help out!
+-   Do not hesitate to ask questions if you wanna help out! Please do let me know if you are interested so we can synergize our efforts.
