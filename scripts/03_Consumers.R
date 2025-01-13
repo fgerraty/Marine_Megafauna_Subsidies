@@ -40,14 +40,14 @@ flow_pal <- c("blank1" = "transparent", "blank2"="transparent", "blank3"= "trans
 #Create dataframe of blank rows
 blank_rows <- tibble(
   marine_megafauna_group = c("blank1", "blank2", "blank3", "blank4", rep("blankA", 4), rep("blankB", 3)),
-  consumer_class = c(rep("blankC", 4), "blank5", "blank6", "blank7", "blank8", "blank9", "blank10", "blank11"),
+  consumer_group = c(rep("blankC", 4), "blank5", "blank6", "blank7", "blank8", "blank9", "blank10", "blank11"),
   freq = rep(10, 11)
 )
 
 
 #Create dataframe for plotting diversity sankey plot
 plot_df <- filtered_consumers %>% 
-  group_by(marine_megafauna_group, consumer_class) %>% #group by consumer-resource combo
+  group_by(marine_megafauna_group, consumer_group) %>% #group by consumer-resource combo
   summarise(freq = n(), .groups="drop") %>% #count # of spp. combinations in each group
   bind_rows(blank_rows) %>% #bring in blank rows for plotting aesthetics
   #Turn axis variables into factors
@@ -55,14 +55,14 @@ plot_df <- filtered_consumers %>%
                                          levels = c("blankA","Cetaceans","blank1","Pinnipeds",
                                                     "blank2", "Fissipeds","blank3",
                                                     "Sirenian","blank4","Sea Turtles", "blankB")),
-         consumer_class = factor(consumer_class, levels = c("blankC", "Reptile", "blank5", "Bird",
+         consumer_group = factor(consumer_group, levels = c("blankC", "Reptile", "blank5", "Bird",
                                                             "blank11","Bat", "blank10","Carnivore",
                                                             "blank9", "Ungulate","blank8", "Rodent",
                                                             "blank7","Armadillo", "blank6","Marsupial"))) 
 
 #Plot diversity sankey plot
 ggplot(data=plot_df, aes(axis1=marine_megafauna_group, 
-                                    axis2=consumer_class,
+                                    axis2=consumer_group,
                                     y=freq))+
   #"Flows" with geom_alluvium
   geom_alluvium(width = 1/12, curve_type = "sigmoid", alpha = .75,
@@ -81,7 +81,7 @@ ggsave("output/extra_plots/sankey_figure/diversity_sankey.png", width = 4, heigh
 # Part 3A: Scavenging sankey plot ####
 
 scav_sankey_df <- filtered_consumers %>% 
-  group_by(marine_megafauna_group, consumer_class, scavenging) %>% 
+  group_by(marine_megafauna_group, consumer_group, scavenging) %>% 
   summarise(freq = n(), .groups="drop") %>% 
   bind_rows(blank_rows) %>% 
   #Turn axis variables into factors
@@ -89,14 +89,14 @@ scav_sankey_df <- filtered_consumers %>%
                                          levels = c("blankA","Cetaceans","blank1","Pinnipeds",
                                                     "blank2", "Fissipeds","blank3",
                                                     "Sirenian","blank4","Sea Turtles", "blankB")),
-         consumer_class = factor(consumer_class, levels = c("blankC", "Reptile", "blank5", "Bird",
+         consumer_group = factor(consumer_group, levels = c("blankC", "Reptile", "blank5", "Bird",
                                                             "blank11","Bat", "blank10","Carnivore",
                                                             "blank9", "Ungulate","blank8", "Rodent",
                                                             "blank7","Armadillo", "blank6","Marsupial"))) 
 
 
 ggplot(data=scav_sankey_df, aes(axis1=marine_megafauna_group, 
-                         axis2=consumer_class,
+                         axis2=consumer_group,
                          y=freq))+
   geom_alluvium(width = 1/12, curve_type = "sigmoid", alpha = .75,
                 aes(fill = scavenging))+
@@ -114,21 +114,21 @@ ggsave("output/extra_plots/sankey_figure/scavenging_sankey.png",
 # Part 3B: Predation sankey plot ####
 
 predation_sankey_df <- filtered_consumers %>% 
-  group_by(marine_megafauna_group, consumer_class, predation) %>% 
+  group_by(marine_megafauna_group, consumer_group, predation) %>% 
   summarise(freq = n(), .groups="drop") %>% 
   bind_rows(blank_rows) %>% 
   mutate(marine_megafauna_group = factor(marine_megafauna_group, 
                                          levels = c("blankA","Cetaceans","blank1","Pinnipeds",
                                                     "blank2", "Fissipeds","blank3",
                                                     "Sirenian","blank4","Sea Turtles", "blankB")),
-         consumer_class = factor(consumer_class, levels = c("blankC", "Reptile", "blank5", "Bird",
+         consumer_group = factor(consumer_group, levels = c("blankC", "Reptile", "blank5", "Bird",
                                                             "blank11","Bat", "blank10","Carnivore",
                                                             "blank9", "Ungulate","blank8", "Rodent",
                                                             "blank7","Armadillo", "blank6","Marsupial"))) 
 
 
 ggplot(data=predation_sankey_df, aes(axis1=marine_megafauna_group, 
-                                axis2=consumer_class,
+                                axis2=consumer_group,
                                 y=freq))+
   geom_alluvium(width = 1/12, curve_type = "sigmoid", alpha = .75,
                 aes(fill = predation))+
@@ -147,21 +147,21 @@ ggsave("output/extra_plots/sankey_figure/predation_sankey.png",
 # Part 3C: Egg consumption sankey plot ####
 
 egg_sankey_df <- filtered_consumers %>% 
-  group_by(marine_megafauna_group, consumer_class, consuming_eggs) %>% 
+  group_by(marine_megafauna_group, consumer_group, consuming_eggs) %>% 
   summarise(freq = n(), .groups="drop") %>% 
   bind_rows(blank_rows) %>% 
   mutate(marine_megafauna_group = factor(marine_megafauna_group, 
                                          levels = c("blankA","Cetaceans","blank1","Pinnipeds",
                                                     "blank2", "Fissipeds","blank3",
                                                     "Sirenian","blank4","Sea Turtles", "blankB")),
-         consumer_class = factor(consumer_class, levels = c("blankC", "Reptile", "blank5", "Bird",
+         consumer_group = factor(consumer_group, levels = c("blankC", "Reptile", "blank5", "Bird",
                                                             "blank11","Bat", "blank10","Carnivore",
                                                             "blank9", "Ungulate","blank8", "Rodent",
                                                             "blank7","Armadillo", "blank6","Marsupial"))) 
 
 
 ggplot(data=egg_sankey_df, aes(axis1=marine_megafauna_group, 
-                                     axis2=consumer_class,
+                                     axis2=consumer_group,
                                      y=freq))+
   geom_alluvium(width = 1/12, curve_type = "sigmoid", alpha = .75,
                 aes(fill = consuming_eggs))+
@@ -183,14 +183,14 @@ placenta_excreta_sankey_df <- filtered_consumers %>%
   mutate(consuming_placenta_excreta = if_else(consuming_placenta == TRUE | 
                                               consuming_excreta == TRUE, 
                                               TRUE, FALSE)) %>% 
-  group_by(marine_megafauna_group, consumer_class, consuming_placenta_excreta) %>% 
+  group_by(marine_megafauna_group, consumer_group, consuming_placenta_excreta) %>% 
   summarise(freq = n(), .groups="drop") %>% 
   bind_rows(blank_rows) %>% 
   mutate(marine_megafauna_group = factor(marine_megafauna_group, 
                                          levels = c("blankA","Cetaceans","blank1","Pinnipeds",
                                                     "blank2", "Fissipeds","blank3",
                                                     "Sirenian","blank4","Sea Turtles", "blankB")),
-         consumer_class = factor(consumer_class, levels = c("blankC", "Reptile", "blank5", "Bird",
+         consumer_group = factor(consumer_group, levels = c("blankC", "Reptile", "blank5", "Bird",
                                                             "blank11","Bat", "blank10","Carnivore",
                                                             "blank9", "Ungulate","blank8", "Rodent",
                                                             "blank7","Armadillo", "blank6","Marsupial"))) 
@@ -198,7 +198,7 @@ placenta_excreta_sankey_df <- filtered_consumers %>%
 
 
 ggplot(data=placenta_excreta_sankey_df, aes(axis1=marine_megafauna_group, 
-                               axis2=consumer_class,
+                               axis2=consumer_group,
                                y=freq))+
   geom_alluvium(width = 1/12, curve_type = "sigmoid", alpha = .75, color = "transparent",
                 aes(fill = consuming_placenta_excreta))+
