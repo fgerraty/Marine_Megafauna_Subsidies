@@ -16,13 +16,15 @@
 
     -   **Marine Megafauna Species** - scientific name of marine megafauna species (when available from data source)
 
-    -   **Consumer Class** - broad categorical taxonomic grouping of consumer species (see categories presented in Figure 2A)
+    -   **Consumer Group** - categorical taxonomic grouping of consumer species (see categories presented in Figure 2A)
 
-    -   **Consumer Group** - finer scale categorical taxonomic grouping of consumer species
+    -   **Consumer Class -** taxonomic class of consumer species
+
+    -   **Consumer Family** - taxonomic family of consumer species
 
     -   **Consumer Common Name** - common name of terrestrial consumer species
 
-    -   **Consumer Species** - scientific name of terrestrial consumer species
+    -   **Consumer Species** - scientific (latin) name of terrestrial consumer species
 
     -   **Scavenging** - TRUE/FALSE. TRUE indicates that the terrestrial consumer species was documented scavenging marine megafauna carrion by sources captured in our literature review. Note that consumers only documented consuming marine megafauna placentae, excreta, and/or eggs would not be flagged as TRUE because there are additional columns for these interaction types.
 

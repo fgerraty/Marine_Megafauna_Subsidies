@@ -12,7 +12,7 @@ subsidies <- read_csv("data/processed/subsidies.csv")
 # PART 2: Prepara data for plots ---------------------------------------
 
 subsidies_map <- subsidies %>% 
-  #Remove global study (no lat/long)
+  #Remove one global study (no lat/long)
   drop_na(decimal_latitude) %>% 
   mutate(
     #Combine studies with multiple marine mammal groups together
