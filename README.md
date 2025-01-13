@@ -27,23 +27,3 @@ There are four primary R scripts required to run all console and data preparatio
 -   **04_Map.R** generates the maps and histograms in Figure 3.
 
 ![](output/extra_plots/analysis_pipeline.png)
-
-------------------------------------------------------------------------
-
-**Notes to Collaborators:**
-
--   Branch the github repo to collaborate.
-
--   Annotate your code!
-
--   Please code using tidyverse packages, following [tidy design principles](https://design.tidyverse.org/).
-
--   My style for naming things is generally:
-
-    -   Scripts: Number_Name.R with capital letters (sorry!) and an underline separating words (e.g. 01_Data_Clean.R)
-
-    -   Objects: lowercase words separated by an underline (e.g. marine_megafauna_subsidies)
-
--   I output all non-final plots to the folder output/extra_plots and then, once they are combined and arranged in illustrator, the final figure is output into the main_figures folder. If no tweaks in illustrator need to be made, we will save the file directly into the main_figures folder. Figures for the supplemental will get output to the supplemental_figures folder or to the extra_plots folder if they need to be tweaked in illustrator.
-
--   Do not hesitate to ask questions if you wanna help out! Please do let me know if you are interested so we can synergize our efforts.
