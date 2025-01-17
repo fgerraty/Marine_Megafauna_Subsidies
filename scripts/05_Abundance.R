@@ -111,7 +111,7 @@ panel_B <- ggplot(B_df, aes(x=species_group, y=mean, fill = period))+
                 width = .2, color = "grey20")+
 #  coord_flip()+
   scale_x_discrete(labels = c("Cetaceans", "Pinnipeds","Sea otters\nand sirenians","Sea turtles"))+
-  scale_y_continuous(breaks = c(0,25,50,75,100))+
+  scale_y_continuous(breaks = c(0,10,20,30,40))+
   scale_fill_manual(values = c("grey70", "grey40"), labels = c("Lowest abundance", "Most recent\nabundance"))+
   theme_few()+
   labs(x="", y="Percent of historical abundance", fill = "")+
@@ -137,7 +137,7 @@ panel_B
 
 
 ggsave("output/extra_plots/abundance_B.png", panel_B, 
-       width = 4.5, height = 4, units = "in")
+       width = 5, height = 4, units = "in")
 
 
 
