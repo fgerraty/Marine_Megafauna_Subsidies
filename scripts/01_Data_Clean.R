@@ -2,8 +2,12 @@
 # Marine Megafauna Subsidies to Terrestrial Ecosystems ###################
 # Gerraty et al. (frankiegerraty@gmail.com; fgerraty@ucsc.edu) ###########
 ##########################################################################
-# Script 01: Clean and Process Data ######################################
+# Script 01: Clean, Process, and Summarize Data ##########################
 #-------------------------------------------------------------------------
+
+###############################
+# Clean and Process Data ######
+###############################
 
 # Part 1: Import Raw Datasets --------------------------------------------
 Marine_Megafauna_Consumers <- read_csv("data/raw/Marine_Megafauna_Consumers.csv")
@@ -75,3 +79,9 @@ write_csv(consumers, "data/processed/consumers.csv")
 write_csv(filtered_consumers, "data/processed/filtered_consumers.csv")
 write_csv(subsidies, "data/processed/subsidies.csv")
 write_csv(abundance, "data/processed/abundance.csv")
+
+
+#######################
+# Summarize Data ######
+#######################
+
