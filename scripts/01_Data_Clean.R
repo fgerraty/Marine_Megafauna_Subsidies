@@ -93,8 +93,10 @@ filtered_consumers <- read_csv("data/processed/filtered_consumers.csv")
 subsidies <- read_csv("data/processed/subsidies.csv") 
 
 
-# Part 1: Details about consumer species and consumer-resource combinations ####
 #-------------------------------------------------------------------------------
+# Part 1: Summarize info about consumer species and interactions ---------------
+#-------------------------------------------------------------------------------
+
 # We will use the "filtered consumers" dataset (see data dictionary for more details)
 
 
@@ -137,3 +139,6 @@ print(filtered_consumers %>%
   group_by(marine_megafauna_group, interaction_type) %>%
   summarise(consumer_species_count = n(), .groups = 'drop'))
 
+#-------------------------------------------------------------------------------
+# Part 1: Summarize info about interaction types -------------------------------
+#-------------------------------------------------------------------------------
