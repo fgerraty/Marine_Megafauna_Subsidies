@@ -85,3 +85,55 @@ write_csv(abundance, "data/processed/abundance.csv")
 # Summarize Data ######
 #######################
 
+#Clear console and import clean, processed datasets
+rm(list=ls())
+
+consumers <- read_csv("data/processed/consumers.csv")
+filtered_consumers <- read_csv("data/processed/filtered_consumers.csv")
+subsidies <- read_csv("data/processed/subsidies.csv") 
+
+
+# Part 1: Details about consumer species and consumer-resource combinations ####
+#-------------------------------------------------------------------------------
+# We will use the "filtered consumers" dataset (see data dictionary for more details)
+
+
+# How many unique megafauna-consumer species combinations total? #### 
+
+print(nrow(filtered_consumers))
+
+# How many unique megafauna-consumer species combinations for each megafauna group? #### 
+
+print(filtered_consumers %>% 
+  group_by(marine_megafauna_group) %>% 
+  summarise(n_combinations = n(), .groups="drop"))
+
+# How many unique consumer species for each megafauna group? ####
+
+print(filtered_consumers %>%
+        #Select relevant columns 
+        select(marine_megafauna_group, consumer_common_name)%>% 
+        unique() %>%  # Remove duplicates
+        group_by(marine_megafauna_group) %>%
+        summarise(consumer_species_count = n(), .groups = 'drop'))
+
+# Question 1: How many unique consumer species are there for each megafauna group and interaction type? ####
+
+print(filtered_consumers %>% 
+  #Create TRUE/FALSE category "other consumption" that is true when there is documented consumption of placenta, excreta, or eggs. 
+  mutate(other_consumption = if_else(consuming_placenta == TRUE | 
+                                       consuming_excreta == TRUE | 
+                                       consuming_eggs == TRUE, TRUE, FALSE)) %>% 
+  #Select relevant columns 
+  select(marine_megafauna_group, consumer_common_name, predation, scavenging, other_consumption) %>% 
+  #Pivot for plotting
+  pivot_longer(cols = c(predation, scavenging, other_consumption), 
+               names_to = "interaction_type", 
+               values_to = "interaction_occurred") %>% 
+  # Filter for rows where the interaction occurred
+  filter(interaction_occurred == TRUE) %>%
+  select(-interaction_occurred) %>% # Remove the logical column
+  unique() %>%  # Remove duplicates
+  group_by(marine_megafauna_group, interaction_type) %>%
+  summarise(consumer_species_count = n(), .groups = 'drop'))
+
