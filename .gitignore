@@ -8,3 +8,4 @@
 .quarto
 temp/*
 scripts/temp/*
+output/temp/*
