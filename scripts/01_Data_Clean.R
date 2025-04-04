@@ -157,7 +157,18 @@ filtered_consumers %>%
   unique() %>%
   nrow()
 
+# Are there taxa that are more commonly documented as prey? 
+filtered_consumers %>% 
+  filter(predation == TRUE) %>% 
+  group_by(marine_megafauna_group) %>% 
+  summarise(n_species = n(),.groups = "drop")
+
 # Are there taxa that are more commonly documented as predators? 
+filtered_consumers %>% 
+  filter(predation == TRUE) %>% 
+  group_by(consumer_class) %>% 
+  summarise(n_species = n(),.groups = "drop")
+
 filtered_consumers %>% 
   filter(predation == TRUE) %>% 
   group_by(consumer_group) %>% 
