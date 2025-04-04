@@ -102,26 +102,26 @@ subsidies <- read_csv("data/processed/subsidies.csv")
 
 # How many unique megafauna-consumer species combinations total? #### 
 
-print(nrow(filtered_consumers))
+nrow(filtered_consumers)
 
 # How many unique megafauna-consumer species combinations for each megafauna group? #### 
 
-print(filtered_consumers %>% 
+filtered_consumers %>% 
   group_by(marine_megafauna_group) %>% 
-  summarise(n_combinations = n(), .groups="drop"))
+  summarise(n_combinations = n(), .groups="drop")
 
 # How many unique consumer species for each megafauna group? ####
 
-print(filtered_consumers %>%
-        #Select relevant columns 
-        select(marine_megafauna_group, consumer_common_name)%>% 
-        unique() %>%  # Remove duplicates
-        group_by(marine_megafauna_group) %>%
-        summarise(consumer_species_count = n(), .groups = 'drop'))
+filtered_consumers %>%
+  #Select relevant columns 
+  select(marine_megafauna_group, consumer_common_name)%>% 
+  unique() %>%  # Remove duplicates
+  group_by(marine_megafauna_group) %>%
+  summarise(consumer_species_count = n(), .groups = 'drop')
 
 # Question 1: How many unique consumer species are there for each megafauna group and interaction type? ####
 
-print(filtered_consumers %>% 
+filtered_consumers %>% 
   #Create TRUE/FALSE category "other consumption" that is true when there is documented consumption of placenta, excreta, or eggs. 
   mutate(other_consumption = if_else(consuming_placenta == TRUE | 
                                        consuming_excreta == TRUE | 
@@ -137,8 +137,168 @@ print(filtered_consumers %>%
   select(-interaction_occurred) %>% # Remove the logical column
   unique() %>%  # Remove duplicates
   group_by(marine_megafauna_group, interaction_type) %>%
-  summarise(consumer_species_count = n(), .groups = 'drop'))
+  summarise(consumer_species_count = n(), .groups = 'drop')
 
 #-------------------------------------------------------------------------------
-# Part 1: Summarize info about interaction types -------------------------------
+# Part 2: Summarize info about predation ---------------------------------------
 #-------------------------------------------------------------------------------
+
+# How many unique predator-prey species pairs?
+filtered_consumers %>% 
+  filter(predation == TRUE) %>% 
+  select(marine_megafauna_common_name, consumer_common_name) %>% 
+  unique()%>% 
+  nrow()
+
+# How many predator species total? 
+filtered_consumers %>% 
+  filter(predation == TRUE) %>% 
+  select(consumer_common_name) %>% 
+  unique() %>%
+  nrow()
+
+# Are there taxa that are more commonly documented as predators? 
+filtered_consumers %>% 
+  filter(predation == TRUE) %>% 
+  group_by(consumer_group) %>% 
+  summarise(n_species = n(),.groups = "drop")
+
+# Are there taxonomic trends in predator-prey relationships?
+filtered_consumers %>% 
+  filter(predation == TRUE) %>% 
+  group_by(marine_megafauna_group, consumer_group) %>% 
+  summarise(n_species_pairs = n(),.groups = "drop")
+
+#-------------------------------------------------------------------------------
+# Part 3: Summarize info about scavenging --------------------------------------
+#-------------------------------------------------------------------------------
+
+# How many unique scavenger-carrion species pairs?
+filtered_consumers %>% 
+   filter(scavenging == TRUE) %>% 
+   select(marine_megafauna_common_name, consumer_common_name) %>% 
+   unique()%>% 
+   nrow()
+
+# How many scavenger species total? 
+filtered_consumers %>% 
+  filter(scavenging == TRUE) %>% 
+  select(consumer_common_name) %>% 
+  unique() %>% 
+  nrow()
+
+# Are there taxa that are more commonly documented as scavengers? 
+filtered_consumers %>% 
+  filter(scavenging == TRUE) %>% 
+  group_by(consumer_group) %>% 
+  summarise(n_species = n(),.groups = "drop")
+
+# Are there taxonomic trends in scavenger-carrion relationships?
+filtered_consumers %>% 
+  filter(scavenging == TRUE) %>% 
+  group_by(marine_megafauna_group, consumer_group) %>% 
+  summarise(n_species_pairs = n(),.groups = "drop")
+
+#-------------------------------------------------------------------------------
+# Part 4: Summarize info about egg consumption ---------------------------------
+#-------------------------------------------------------------------------------
+
+# How many unique sea turtle - egg consumer species pairs?
+filtered_consumers %>% 
+  filter(consuming_eggs == TRUE) %>% 
+  select(marine_megafauna_common_name, consumer_common_name) %>% 
+  unique()%>% 
+  nrow()
+
+# How many egg consumer species total? 
+filtered_consumers %>% 
+  filter(consuming_eggs == TRUE) %>% 
+  select(consumer_common_name) %>% 
+  unique() %>% 
+  nrow()
+
+# Are there taxa that are more commonly documented as egg consumers? 
+filtered_consumers %>% 
+  filter(consuming_eggs == TRUE) %>% 
+  group_by(consumer_group) %>% 
+  summarise(n_species = n(),.groups = "drop")
+
+
+#-------------------------------------------------------------------------------
+# Part 5: Summarize info about placenta/excreta consumption --------------------
+#-------------------------------------------------------------------------------
+
+# How many unique marine mammal - placenta consumer species pairs?
+filtered_consumers %>% 
+  filter(consuming_placenta == TRUE) %>% 
+  select(marine_megafauna_common_name, consumer_common_name) %>% 
+  unique()%>% 
+  nrow()
+
+# How many placenta consumer species total? 
+filtered_consumers %>% 
+  filter(consuming_placenta == TRUE) %>% 
+  select(consumer_common_name) %>% 
+  unique() %>% 
+  nrow()
+
+# Are there taxa that are more commonly documented as placenta consumers? 
+filtered_consumers %>% 
+  filter(consuming_placenta == TRUE) %>% 
+  group_by(consumer_group) %>% 
+  summarise(n_species = n(),.groups = "drop")
+
+
+# How many unique marine mammal - excreta consumer species pairs?
+filtered_consumers %>% 
+  filter(consuming_excreta == TRUE) %>% 
+  select(marine_megafauna_common_name, consumer_common_name) %>% 
+  unique()%>% 
+  nrow()
+
+# How many placenta consumer species total? 
+filtered_consumers %>% 
+  filter(consuming_excreta == TRUE) %>% 
+  select(consumer_common_name) %>% 
+  unique() %>% 
+  nrow()
+
+# Are there taxa that are more commonly documented as placenta consumers? 
+filtered_consumers %>% 
+  filter(consuming_excreta == TRUE) %>% 
+  group_by(consumer_group) %>% 
+  summarise(n_species = n(),.groups = "drop")
+
+#-------------------------------------------------------------------------------
+# Part 5: Summarize info about subsidy effects ---------------------------------
+#-------------------------------------------------------------------------------
+
+# How many studies documented ecological effects of marine megafauna subsidies?
+subsidies %>% 
+  select(source) %>% 
+  unique() %>% 
+  nrow()
+  
+# How many studies for each subsidy type?
+subsidies %>% 
+  select(type_of_marine_megafauna_subsidy, source) %>% 
+  unique() %>% 
+  group_by(type_of_marine_megafauna_subsidy) %>% 
+  summarise(n_studies = n())
+
+# How many studies for ecological effect category?
+subsidies %>%
+  select(source, type_of_ecological_effect) %>% 
+  unique() %>% 
+  separate_rows(type_of_ecological_effect, sep = ",\\s*") %>%  # separate by commas, remove extra space
+  group_by(type_of_ecological_effect) %>%
+  summarise(n_studies = n())
+
+# How many studies showing multiple ecological effects? 
+subsidies %>%
+  select(source, type_of_ecological_effect) %>% 
+  unique() %>% 
+  mutate(effect_type = if_else(str_detect(type_of_ecological_effect, ","), 
+                               "multiple", "single")) %>%
+  count(effect_type)
+
