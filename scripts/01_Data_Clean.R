@@ -198,6 +198,12 @@ filtered_consumers %>%
   unique() %>% 
   nrow()
 
+# Are there taxa that are more commonly documented as carrion? 
+filtered_consumers %>% 
+  filter(scavenging == TRUE) %>% 
+  group_by(marine_megafauna_group) %>% 
+  summarise(n_species = n(),.groups = "drop")
+
 # Are there taxa that are more commonly documented as scavengers? 
 filtered_consumers %>% 
   filter(scavenging == TRUE) %>% 
@@ -234,6 +240,33 @@ filtered_consumers %>%
   group_by(consumer_group) %>% 
   summarise(n_species = n(),.groups = "drop")
 
+filtered_consumers %>% 
+  filter(consuming_eggs == TRUE) %>% 
+  group_by(consumer_class) %>% 
+  summarise(n_species = n(),.groups = "drop")
+
+filtered_consumers %>% 
+  filter(consuming_eggs == TRUE) %>% 
+  group_by(consumer_family) %>% 
+  summarise(n_species = n(),.groups = "drop") %>% 
+  arrange(-n_species)
+
+#How many classes of consumers? 
+filtered_consumers %>% 
+  filter(consuming_eggs == TRUE) %>% 
+  select(consumer_class) %>% 
+  unique() %>% 
+  nrow()
+
+#How many families of consumers?
+filtered_consumers %>% 
+  filter(consuming_eggs == TRUE) %>% 
+  select(consumer_family) %>% 
+  unique() %>% 
+  nrow()
+
+
+
 
 #-------------------------------------------------------------------------------
 # Part 5: Summarize info about placenta/excreta consumption --------------------
@@ -267,18 +300,42 @@ filtered_consumers %>%
   unique()%>% 
   nrow()
 
-# How many placenta consumer species total? 
+# How many excreta consumer species total? 
 filtered_consumers %>% 
   filter(consuming_excreta == TRUE) %>% 
   select(consumer_common_name) %>% 
   unique() %>% 
   nrow()
 
-# Are there taxa that are more commonly documented as placenta consumers? 
+# Are there taxa that are more commonly documented as excreta consumers? 
 filtered_consumers %>% 
   filter(consuming_excreta == TRUE) %>% 
   group_by(consumer_group) %>% 
   summarise(n_species = n(),.groups = "drop")
+
+
+# Combined! 
+# How many unique marine mammal - placenta/excreta consumer species pairs?
+filtered_consumers %>% 
+  filter(consuming_placenta == TRUE | consuming_excreta == TRUE) %>% 
+  select(marine_megafauna_common_name, consumer_common_name) %>% 
+  unique()%>% 
+  nrow()
+
+# How many placenta/excreta consumer species total? 
+filtered_consumers %>% 
+  filter(consuming_placenta == TRUE | consuming_excreta == TRUE) %>% 
+  select(consumer_common_name) %>% 
+  unique() %>% 
+  nrow()
+
+# Are there taxa that are more commonly documented as placenta/excreta consumers? 
+filtered_consumers %>% 
+  filter(consuming_placenta == TRUE | consuming_excreta == TRUE) %>% 
+  group_by(consumer_group) %>% 
+  summarise(n_species = n(),.groups = "drop")
+
+
 
 #-------------------------------------------------------------------------------
 # Part 5: Summarize info about subsidy effects ---------------------------------
