@@ -2,8 +2,12 @@
 # Marine Megafauna Subsidies to Terrestrial Ecosystems ###################
 # Gerraty et al. (frankiegerraty@gmail.com; fgerraty@ucsc.edu) ###########
 ##########################################################################
-# Script 04: Subsidy Map #################################################
+# Script 04: Subsidy Maps ################################################
 #-------------------------------------------------------------------------
+
+###############################################
+# Import and Prepare Datasets for Plotting ####
+###############################################
 
 # PART 1: Import Data ----------------------------------------------------
 
@@ -75,6 +79,10 @@ marginal_df <- subsidies_map %>%
                                                       "Sea Turtles")))
 
 
+##########################################
+# Megafauna Species Map and Histogram ####
+##########################################
+
 # PART 3: Generate Species Map ------------------------------------------------
 
 #Extract world map from rnaturalearth data
@@ -98,27 +106,8 @@ ggplot() +
 
 ggsave("output/extra_plots/species_map.png", width = 7, height = 5, units = "in")
 
-# PART 4: Generate Subsidy Type Map ---------------------------------------------
 
-
-#Plot global map with points colored by subsidy type 
-ggplot() +
-  geom_sf(data = world, color="transparent", fill = "grey60")+
-  geom_sf(data = subsidies_map_sf, aes(fill=type_of_marine_megafauna_subsidy),
-          size = 3,
-          color = "transparent",
-          pch=21)+
-  coord_sf(crs = st_crs('ESRI:54030'))+
-  scale_fill_manual(values = c( "#219ebc","#F77F00", "#003049"))+
-  theme_minimal()+
-  theme(legend.position = "none")
-
-
-ggsave("output/extra_plots/subsidy_type_map.png", width = 7, height = 5, units = "in")
-
-
-
-# PART 5: Plot Species Histogram ------------------------------------------
+# PART 4: Plot Species Histogram ------------------------------------------
 
 species_histogram <- ggplot(data=marginal_df, aes(x=decimal_latitude, fill = megafauna_marginal_group))+
   geom_histogram(bins=15,
@@ -151,6 +140,29 @@ species_histogram +
 
 ggsave("output/extra_plots/latitude_histogram.png", width = 2, height = 4, units = "in")
 
+#####################################
+# Subsidy Type Map and Histogram ####
+#####################################
+
+
+# PART 5: Generate Subsidy Type Map ---------------------------------------------
+
+
+#Plot global map with points colored by subsidy type 
+ggplot() +
+  geom_sf(data = world, color="transparent", fill = "grey60")+
+  geom_sf(data = subsidies_map_sf, aes(fill=type_of_marine_megafauna_subsidy),
+          size = 3,
+          color = "transparent",
+          pch=21)+
+  coord_sf(crs = st_crs('ESRI:54030'))+
+  scale_fill_manual(values = c( "#219ebc","#F77F00", "#003049"))+
+  theme_minimal()+
+  theme(legend.position = "none")
+
+
+ggsave("output/extra_plots/subsidy_type_map.png", width = 7, height = 5, units = "in")
+
 
 # PART 6: Plot Subsidy Type Histogram ------------------------------------------
 
@@ -182,3 +194,55 @@ subsidy_type_histogram +
 
 ggsave("output/extra_plots/subsidy_type_histogram.png", width = 2, height = 4, units = "in")
  
+
+###########################################
+# Ecological Effects Map and Histogram ####
+###########################################
+
+# PART 7: Ecological Effects Map -----------------------------------------------
+
+ggplot() +
+  geom_sf(data = world, color="transparent", fill = "grey60")+
+  geom_sf(data = subsidies_map_sf, aes(fill=type_of_ecological_effect),
+          size = 3,
+          color = "transparent",
+          pch=21)+
+  coord_sf(crs = st_crs('ESRI:54030'))+
+  scale_fill_manual(values = c("#FFB000", "#FE6100", 
+                               "#DC267F", "#785EF0", "#648FFF"))+
+  theme_minimal()+
+  theme(legend.position = "none")
+
+ggsave("output/extra_plots/ecological_effects_map.png", width = 7, height = 5, units = "in")
+
+# PART 8: Ecological Effects Histogram -----------------------------------------------
+
+effects_histogram <- ggplot(data=subsidies_map, aes(x=decimal_latitude, fill = type_of_ecological_effect))+
+  geom_histogram(bins=15,
+                 breaks=c(-90,-75,-60,-45,-30,-15,0,15,30,45,60,75,90))+
+  geom_vline(xintercept = seq(-90, 90, by = 15), color = "white")+  # Add vertical lines
+  scale_x_continuous(breaks=c(-90,-75,-60,-45,-30,-15,0,15,30,45,60,75,90),
+                     expand = c(0, 0))+
+  scale_fill_manual(values = c("#FFB000", "#FE6100", 
+                               "#DC267F", "#785EF0", "#648FFF"))+
+  labs(fill = "Type of Ecological Effect")+
+  coord_flip()+  # Flips the chart to be horizontal
+  theme_classic() +
+  theme(legend.box.background = element_rect(colour = "black", linewidth = 2))+
+  labs(x = "Latitude", y= "# Studies")
+effects_histogram
+
+
+#Extract legend from species histogram and export as .png
+effects_legend <- get_legend(effects_histogram)
+plot <- as_ggplot(effects_legend) +
+  theme(legend.position = "bottom")
+plot
+ggsave("output/extra_plots/effects_legend.png", width = 2.2, height = 2, units = "in")
+
+
+#Remove legend and export histogram as .png
+effects_histogram +
+  theme(legend.position = "none")
+
+ggsave("output/extra_plots/effect_histogram.png", width = 2, height = 4, units = "in")
