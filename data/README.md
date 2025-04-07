@@ -104,11 +104,11 @@
 
     -   **Notes**
 
--   [**Megafauna_Abundance.csv**](https://github.com/fgerraty/Marine_Megafauna_Subsidies/blob/main/data/raw/Megafauna_Abundance.csv) **-** The supplemental record table from [Lotze and Worm (2009)](https://doi.org/10.1016/j.tree.2008.12.004) filtered to only include records of marine mammals and sea turtles. See Box 3 in [Lotze and Worm (2009)](https://doi.org/10.1016/j.tree.2008.12.004) for a detailed description of data collection and analysis.
+-   [**Megafauna_Abundance.csv**](https://github.com/fgerraty/Marine_Megafauna_Subsidies/blob/main/data/raw/Megafauna_Abundance.csv) **-** The supplemental record table from [Lotze and Worm (2009)](https://doi.org/10.1016/j.tree.2008.12.004) filtered to only include records of marine mammals and sea turtles. See Box 3 in Lotze and Worm (2009) for a detailed description of data collection and analysis.
 
     **Columns:**
 
-    -   **Record_Lotze_Worm** - record ID from the supplemental record table in [Lotze and Worm (2009)](https://doi.org/10.1016/j.tree.2008.12.004).
+    -   **Record_Lotze_Worm** - record ID from the supplemental record table in Lotze and Worm (2009).
 
     -   **Species Group -** Taxonomic group
 
