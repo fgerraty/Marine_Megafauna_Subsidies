@@ -104,6 +104,53 @@
 
     -   **Notes**
 
+-   [**Megafauna_Abundance.csv**](https://github.com/fgerraty/Marine_Megafauna_Subsidies/blob/main/data/raw/Megafauna_Abundance.csv) **-** The supplemental record table from [Lotze and Worm (2009)](https://doi.org/10.1016/j.tree.2008.12.004) filtered to only include records of marine mammals and sea turtles. See Box 3 in [Lotze and Worm (2009)](https://doi.org/10.1016/j.tree.2008.12.004) for a detailed description of data collection and analysis.
+
+    **Columns:**
+
+    -   **Record_Lotze_Worm** - record ID from the supplemental record table in [Lotze and Worm (2009)](https://doi.org/10.1016/j.tree.2008.12.004).
+
+    -   **Species Group -** Taxonomic group
+
+    -   **Species Detail -** Species name
+
+    -   **Region -** Region of the source study
+
+    -   **Ocean Habitat -** Ocean habitat of the megafauna species
+
+    -   **Discipline -** Discipline of source study
+
+    -   **Analytical method -** Analytical method of source study
+
+    -   **Metric used (unit) -** Abundance metric (e.g., biomass, number)
+
+    -   **Data detail -** Additional details of source data
+
+    -   **Time period Then to Now -** Time frame of the study
+
+    -   **Low year -** Year of lowest abundance. If this is empty then the low
+        point is equal to the most recent record.
+
+    -   **Then unit -** Abundance estimates for the beginning of the data series.
+
+    -   **Low unit -** Abundance estimates for the low point of the data series. If this is empty then the low point is equal to the most recent record.
+
+    -   **Now unit -** Most recent abundance estimate for the data series.
+
+    -   **All species % Decline Then to Low -** Percent decline from historical baseline to low record.
+
+    -   **% Decline Then to Now -** Percent decline from historical baseline to most recent record.
+
+    -   **% Left Low -** Percent left of historical baseline at low record
+
+    -   **% Left Now -** Percent left of historical baseline at most recent record
+
+    -   **Recovered only % Left Low -** Percent left of historical baseline at low record (only for recovered species)
+
+    -   **Recovered only % Left Now -** Percent left of historical baseline at most recent record (only for recovered species)
+
+    -   **Ref_No_Lotze_Worm -** Record reference number from Lotze and Worm 2009.
+
 #### Folder ["processed"](https://github.com/fgerraty/Marine_Megafauna_Subsidies/tree/main/data/processed) houses the following data files
 
 -   [**consumers.csv**](https://github.com/fgerraty/Marine_Megafauna_Subsidies/blob/main/data/processed/consumers.csv) **-** A complete, clean version of the *Marine_Megafauna_Consumers.csv* raw data file, which includes all of the terrestrial vertebrate consumers of marine megafauna captured in our synthetic literature review (see manuscript for review methods).
@@ -117,3 +164,5 @@
 -   [**subsidies.csv**](https://github.com/fgerraty/Marine_Megafauna_Subsidies/blob/main/data/processed/subsidies.csv) **-** A complete, clean version of the *Marine_Megafauna_Subsidies.csv* raw data file, which includes all of the case studies captured in our synthetic literature review that documented an ecological consequence in terrestrial ecosystems arising from (1) marine megafauna consumption by terrestrial consumers, (2) marine megafauna vectored nutrient subsidies to terrestrial ecosystems, or (3) indirect effects of marine megafauna.
 
     Columns in this file are the same as *Marine_Megafauna_Subsidies.csv* except in this version they are all lowercase, with words separated by underlines (e.g. "Marine Megafauna Group" is now "marine_megafauna_group")
+
+-   [**abundance.csv**](https://github.com/fgerraty/Marine_Megafauna_Subsidies/blob/main/data/processed/abundance.csv) - A clean version of the *Megafauna_Abundance.csv* raw data file derived from Lotze and Worm (2009). Columns in this file are the same as *Megafauna_Abundance.csv* except in this version they are all lowercase, with words separated by underlines.
