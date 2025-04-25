@@ -104,11 +104,18 @@ subsidies <- read_csv("data/processed/subsidies.csv")
 
 nrow(filtered_consumers)
 
-# How many unique megafauna-consumer species combinations for each megafauna group? #### 
+
+# How many unique consumer species? #### 
 
 filtered_consumers %>% 
   group_by(marine_megafauna_group) %>% 
   summarise(n_combinations = n(), .groups="drop")
+
+# How many unique megafauna-consumer species combinations for each megafauna group? #### 
+
+nrow(filtered_consumers %>% 
+  select(consumer_common_name) %>% 
+  distinct())
 
 # How many unique consumer species for each megafauna group? ####
 
@@ -119,7 +126,7 @@ filtered_consumers %>%
   group_by(marine_megafauna_group) %>%
   summarise(consumer_species_count = n(), .groups = 'drop')
 
-# Question 1: How many unique consumer species are there for each megafauna group and interaction type? ####
+# How many unique consumer species are there for each megafauna group and interaction type? ####
 
 filtered_consumers %>% 
   #Create TRUE/FALSE category "other consumption" that is true when there is documented consumption of placenta, excreta, or eggs. 
@@ -139,6 +146,15 @@ filtered_consumers %>%
   group_by(marine_megafauna_group, interaction_type) %>%
   summarise(consumer_species_count = n(), .groups = 'drop')
 
+# How many consumer species in each family? #### 
+
+filtered_consumers %>% 
+  select(consumer_common_name, consumer_family) %>% 
+  distinct() %>% 
+  group_by(consumer_family) %>% 
+  summarise(n_species = n()) %>% 
+  arrange(-n_species)
+
 #-------------------------------------------------------------------------------
 # Part 2: Summarize info about predation ---------------------------------------
 #-------------------------------------------------------------------------------
@@ -157,6 +173,13 @@ filtered_consumers %>%
   unique() %>%
   nrow()
 
+# How many prey species total? 
+filtered_consumers %>% 
+  filter(predation == TRUE) %>% 
+  select(marine_megafauna_common_name) %>% 
+  unique() %>%
+  nrow()
+
 # Are there taxa that are more commonly documented as prey? 
 filtered_consumers %>% 
   filter(predation == TRUE) %>% 
@@ -167,12 +190,18 @@ filtered_consumers %>%
 filtered_consumers %>% 
   filter(predation == TRUE) %>% 
   group_by(consumer_class) %>% 
-  summarise(n_species = n(),.groups = "drop")
+  summarise(n_pairs = n(),.groups = "drop")
 
 filtered_consumers %>% 
   filter(predation == TRUE) %>% 
   group_by(consumer_group) %>% 
-  summarise(n_species = n(),.groups = "drop")
+  summarise(n_pairs = n(),.groups = "drop")
+
+filtered_consumers %>% 
+  filter(predation == TRUE) %>% 
+  group_by(consumer_family) %>% 
+  summarise(n_pairs = n(),.groups = "drop") %>% 
+  arrange(-n_pairs)
 
 # Are there taxonomic trends in predator-prey relationships?
 filtered_consumers %>% 
@@ -198,6 +227,13 @@ filtered_consumers %>%
   unique() %>% 
   nrow()
 
+# How many marine megafauna species total? 
+filtered_consumers %>% 
+  filter(scavenging == TRUE) %>% 
+  select(marine_megafauna_common_name) %>% 
+  unique() %>% 
+  nrow()
+
 # Are there taxa that are more commonly documented as carrion? 
 filtered_consumers %>% 
   filter(scavenging == TRUE) %>% 
@@ -209,6 +245,17 @@ filtered_consumers %>%
   filter(scavenging == TRUE) %>% 
   group_by(consumer_group) %>% 
   summarise(n_species = n(),.groups = "drop")
+
+filtered_consumers %>% 
+  filter(scavenging == TRUE) %>% 
+  group_by(consumer_class) %>% 
+  summarise(n_species = n(),.groups = "drop")
+
+filtered_consumers %>% 
+  filter(scavenging == TRUE) %>% 
+  group_by(consumer_family) %>% 
+  summarise(n_species = n(),.groups = "drop") %>% 
+  arrange(-n_species)
 
 # Are there taxonomic trends in scavenger-carrion relationships?
 filtered_consumers %>% 
@@ -366,4 +413,5 @@ subsidies %>%
   mutate(effect_type = if_else(str_detect(type_of_ecological_effect, ","), 
                                "multiple", "single")) %>%
   count(effect_type)
+
 
