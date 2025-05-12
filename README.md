@@ -32,7 +32,11 @@ There are four primary R scripts required to run all console and data preparatio
 
 ------------------------------------------------------------------------
 
-| Marine megafauna | Consumer | Interaction types | Authors |
+## Marine Megafauna and Consumer Species Pairs
+
+In our literature review we identified 224 unique combinations (235 total, but these were not necessarily unique due to uncertainty of megafauna or consumer taxonomic level) between a marine megafauna species and a terrestrial vertebrate consumer species. These are outlined here, with more detail including taxonomic details and reference links accessible at [**data/processed/consumers.csv**](https://github.com/fgerraty/Marine_Megafauna_Subsidies/blob/main/data/processed/consumers.csv)
+
+| Marine Megafauna Species | Consumer Species | Interaction Type(s) | Source(s) |
 |:--------------|:--------------|:--------------|:---------------------------|
 | **Cetaceans** |  |  |  |
 | "cetacean" | Brown hyaena | Scavenging | Kuhn et al. (2010) |
@@ -108,7 +112,7 @@ There are four primary R scripts required to run all console and data preparatio
 | California sea lion | Mountain lion | Unknown | Wilton (2016) |
 | Cape fur seal | Brown hyaena | Predation, Scavenging | Kuhn et al. (2010) |
 | Cape fur seal | Black-backed jackal | Predation, Scavenging, Consuming placenta | Hiscocks and Perrin (1987), Oosthuizen et al. (1997) |
-| Cape fur seal | Lion | Predation, Scavenging | Bridgeford, PA (1984), Stander (2019) |
+| Cape fur seal | Lion | Predation, Scavenging | Bridgeford (1984), Stander (2019) |
 | Cape fur seal | Kelp gull | Predation | Gallagher et al (2015) |
 | Galapagos fur seal | Galapagos hawk | Scavenging | Weisberg and Perez (2018) |
 | Galapagos sea lion | Española mockingbird | Predation, Consuming placenta | Curry and Anderson (1987) |
@@ -162,7 +166,7 @@ There are four primary R scripts required to run all console and data preparatio
 | "sea turtle" | Mangrove black-hawk | Scavenging | Escobar-Lasso et al. (2016) |
 | "sea turtle" | Black iguana | Scavenging | Escobar-Lasso et al. (2016) |
 | "sea turtle" | Northern raccoon | Scavenging | Escobar-Lasso et al. (2016), Madden et al. (2008) |
-| "sea turtle" | Dog | Consuming eggs | Madden, D; Ballestero, J; Calvo, C; Carlson, R; Christians, E; Madden, E |
+| "sea turtle" | Dog | Consuming eggs | Madden et al. (2008) |
 | "sea turtle" | American crocodile | Scavenging | Escobar-Lasso et al. (2016) |
 | "sea turtle" | Mountain lion | Scavenging | Escobar-Lasso et al. (2016) |
 | "sea turtle" | Coyote | Scavenging | Escobar-Lasso et al. (2016) |

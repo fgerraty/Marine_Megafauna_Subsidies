@@ -128,8 +128,7 @@
 
     -   **Time period Then to Now -** Time frame of the study
 
-    -   **Low year -** Year of lowest abundance. If this is empty then the low
-        point is equal to the most recent record.
+    -   **Low year -** Year of lowest abundance. If this is empty then the low point is equal to the most recent record.
 
     -   **Then unit -** Abundance estimates for the beginning of the data series.
 
