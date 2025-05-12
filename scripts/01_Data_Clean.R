@@ -404,7 +404,8 @@ subsidies %>%
   unique() %>% 
   separate_rows(type_of_ecological_effect, sep = ",\\s*") %>%  # separate by commas, remove extra space
   group_by(type_of_ecological_effect) %>%
-  summarise(n_studies = n())
+  summarise(n_studies = n()) %>% 
+  mutate(percent = n_studies/63)
 
 # How many studies showing multiple ecological effects? 
 subsidies %>%
