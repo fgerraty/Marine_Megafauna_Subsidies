@@ -20,6 +20,8 @@ There are four primary R scripts required to run all console and data preparatio
 
 ![](output/extra_plots/analysis_pipeline.png)
 
+These scripts depend on the following R packages: tidyverse (v2.0.0), janitor (v2.2.1), ggalluvial (v0.12.5), ggpubr (v0.6.0), sf (v1.0.20), rnaturalearth (v1.0.1), rnaturalearthdata (v1.0.0), ggthemes (v5.1.0).
+
 ------------------------------------------------------------------------
 
 There are two primary datasets associated with this repository:
@@ -32,12 +34,28 @@ There is one additional dataset associated with this repository, "Marine Megafau
 
 ------------------------------------------------------------------------
 
-## Marine Megafauna and Consumer Species Pairs
+## Marine Megafauna Consumers Data Summary
 
-In our literature review we identified 224 unique combinations (235 total, but these were not necessarily unique due to uncertainty of megafauna or consumer taxonomic level) between a marine megafauna species and a terrestrial vertebrate consumer species. These are outlined here, with more detail including taxonomic details and reference links accessible at [**data/processed/consumers.csv**](https://github.com/fgerraty/Marine_Megafauna_Subsidies/blob/main/data/processed/consumers.csv)
+In our literature review we identified 224 unique combinations (235 total, but these were not necessarily unique due to uncertainty of megafauna or consumer taxonomic level) between a marine megafauna species and a terrestrial vertebrate consumer species. Additional results not presented in the manuscript, and the megafauna-consumer species pairs, are presented here. Additional details including taxonomic categorizations and reference links are accessible at [**data/processed/consumers.csv**](https://github.com/fgerraty/Marine_Megafauna_Subsidies/blob/main/data/processed/consumers.csv)
+
+**Additional Results**
+
+-   42 unique species pairs involved cetaceans as a food source, 63 species pairs involved pinnipeds (seals and sea lions) as a food source, 8 species pairs involved fissipeds (sea otters) as a food source, 2 species pairs involved sirenians (manatees and dugongs) as a food source, and 109 species pairs involved sea turtles as a food source.
+
+-   We identified 96 unique terrestrial consumer species in 35 families. The families with the most number of unique consumer species were Canidae (11 species), Mustelidae (9 species), Colubridae (7 species), and Laridae (7 species).
+
+-   Predation: We identified 53 unique pairs of terrestrial predators hunting marine megafauna prey. These predator-prey interactions consisted of 33 unique predator species and 19 unique marine megafauna species. Most predator-prey interactions involved sea turtles as prey (27 species pairs), followed by pinnipeds (19 pairs), fissipeds (4 pairs), cetaceans (2 pairs), and sirenians (1 pair). The predator families with the greatest number of unique predator-prey species pairs were Canidae (11 pairs), Ursidae (9 pairs), and Felidae (6 pairs).
+
+-   Scavenging: We identified 89 unique species pairs of terrestrial vertebrates scavenging marine megafauna carrion. These scavenging interactions consisted of 38 unique scavenger species and 41 unique marine megafauna species. Most scavenging interactions involved pinnipeds as a food source (41 pairs), followed by cetaceans (34 pairs), sea turtles (7 pairs), fissipeds (6 pairs), and sirenians (1 pair). The scavenger families with the greatest number of unique megafauna scavenging species pairs were Canidae (26 pairs), Cathartidae (13 pairs), and Ursidae (9 pairs).
+
+-   Placenta Consumption: We identified 11 unique species pairs of terrestrial vertebrates consuming marine mammal placentas. These interactions consisted of 10 unique consumer species total and 8 unique marine megafauna species, all of which were pinnipeds. The placenta consumers consisted of birds (8 species pairs), carnivores (2 species pairs) and one reptile species (the Galapagos marine iguana).
+
+-   Excreta Consumption: We identified 4 unique species pairs of terrestrial vertebrates consuming marine megafauna excreta. These interactions consisted of 3 unique consumer species total and 3 unique marine megafauna species, all of which were pinnipeds. The placenta consumers consisted of birds (3 species pairs) and one reptile species (the Galapagos marine iguana).
+
+-   Egg Consumption: We identified 88 unique species pairs involving all seven sea turtle species and their terrestrial vertebrate egg predators, and 51 unique sea turtle egg consumer species total. The egg predators were taxonomically diverse, spanning 22 families of mammals, birds, and reptiles. The most common nest predators were canids (Canidae, n=20), mustelids (Mustelidae, n=11), monitor lizards (Varanidae, n=8), and colubrid snakes (Colubridae, n=7).
 
 | Marine Megafauna Species | Consumer Species | Interaction Type(s) | Source(s) |
-|:--------------|:--------------|:--------------|:---------------------------|
+|:---------------|:---------------|:---------------|:------------------------|
 | **Cetaceans** |  |  |  |
 | "cetacean" | Brown hyaena | Scavenging | Kuhn et al. (2010) |
 | "dolphin" | Jaguar | Scavenging | Castañeda et al. (2013) |
@@ -279,12 +297,12 @@ In our literature review we identified 224 unique combinations (235 total, but t
 | Amazon manatee | Jaguar | Predation | Bertram and Bertram (1973) |
 | Dugong | Dingo | Scavenging | Behrendorff et al. (2016), Behrendorff et al (2018) |
 
-## Marine Megafauna Subsidy Effects
+## Marine Megafauna Subsidy Effects Summary
 
-In our literature review we identified 63 case studies documenting one or more ecological consequences of marine megafauna subsidies to terrestrial ecosystems. These are outlined here, with more details and reference links accessible at [**data/processed/subsidies.csv**](https://github.com/fgerraty/Marine_Megafauna_Subsidies/blob/main/data/processed/subsidies.csv)
+In our literature review we identified 63 case studies documenting one or more ecological consequences of marine megafauna subsidies to terrestrial ecosystems. These are outlined below, with more details and reference links accessible at [**data/processed/subsidies.csv**](https://github.com/fgerraty/Marine_Megafauna_Subsidies/blob/main/data/processed/subsidies.csv)
 
 | Type of Ecological Effect | Description | authors |
-|:----------|:--------------------------------------------|:---------------|
+|:---------------|:----------------------------------------|:---------------|
 | Other | Sea otter population declines were associated with changes in diet, dietary diversity, and breeding success and productivity of bald eagles in the Aleutian islands. | Anthony et al. (2008) |
 | Consumer behavior | Polar bears, when on land, are spatially aggregated near scavenge subsidies in the form of subsistence-hunted bowhead whale “bone piles.” | Atwood et al. (2016) |
 | Consumer health | Marine vertebrate consumption is associated with elevated total mercury (THg) levels among arctic foxes in island and mainland ecosystems in the Commander Islands and Iceland. | Bocharova et al. (2013) |

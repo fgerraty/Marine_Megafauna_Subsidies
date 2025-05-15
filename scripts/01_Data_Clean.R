@@ -330,6 +330,13 @@ filtered_consumers %>%
   unique() %>% 
   nrow()
 
+# How many placenta source species total? 
+filtered_consumers %>% 
+  filter(consuming_placenta == TRUE) %>% 
+  select(marine_megafauna_common_name) %>% 
+  unique() %>% 
+  nrow()
+
 # Are there taxa that are more commonly documented as placenta consumers? 
 filtered_consumers %>% 
   filter(consuming_placenta == TRUE) %>% 
