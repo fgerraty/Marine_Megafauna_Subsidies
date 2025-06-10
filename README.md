@@ -1,6 +1,6 @@
 # Historical and potential future importance of marine megafauna subsidies to terrestrial ecosystems
 
-**FD Gerraty**, C Braman, J Dugan, K Elder, K Emery, B Halpern, W Heady, E Hiroyasu, G Lewin, E Nielsen, R Oliver, M Reynolds, A Wegmann, R Williams, R Wynn-Grant, H Young, Z Zilz
+**FD Gerraty**, CA Braman, JE Dugan, K Elder, KA Emery, BS Halpern, WN Heady, EHT Hiroyasu, GB Lewin, ES Nielsen, RY Oliver, M Reynolds, A Wegmann, RC Williams, R Wynn-Grant, HS Young, ZL Zilz
 
 Marine megafauna connect land and sea by serving as large, calorically-rich food sources for terrestrial consumers and by transferring marine-derived nutrients onto land as eggs, placenta, excreta, and carcasses. In this project, we review the role of marine megafauna - particularly marine mammals and sea turtles - as connectors of marine and terrestrial ecosystems along global coastlines. We compile published literature to describe the diversity of terrestrial consumers that exploit marine megafauna as a food source, as well as descriptions of documented ecological consequences resulting from megafauna-mediated nutrient subsidies from marine to terrestrial ecosystems. Here, we provide an overview of the datasets and scripts associated with this repository.
 
