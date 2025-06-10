@@ -2,6 +2,8 @@
 
 **FD Gerraty**, CA Braman, JE Dugan, K Elder, KA Emery, BS Halpern, WN Heady, EHT Hiroyasu, GB Lewin, ES Nielsen, RY Oliver, M Reynolds, A Wegmann, RC Williams, R Wynn-Grant, HS Young, ZL Zilz
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.15635282.svg)](https://doi.org/10.5281/zenodo.15635282)
+
 Marine megafauna connect land and sea by serving as large, calorically-rich food sources for terrestrial consumers and by transferring marine-derived nutrients onto land as eggs, placenta, excreta, and carcasses. In this project, we review the role of marine megafauna - particularly marine mammals and sea turtles - as connectors of marine and terrestrial ecosystems along global coastlines. We compile published literature to describe the diversity of terrestrial consumers that exploit marine megafauna as a food source, as well as descriptions of documented ecological consequences resulting from megafauna-mediated nutrient subsidies from marine to terrestrial ecosystems. Here, we provide an overview of the datasets and scripts associated with this repository.
 
 ------------------------------------------------------------------------
