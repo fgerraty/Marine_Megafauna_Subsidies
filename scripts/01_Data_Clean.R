@@ -13,6 +13,9 @@
 Marine_Megafauna_Consumers <- read_csv("data/raw/Marine_Megafauna_Consumers.csv")
 Marine_Megafauna_Subsidies <- read_csv("data/raw/Marine_Megafauna_Subsidies.csv")
 Marine_Megafauna_Abundance <- read_csv("data/raw/Megafauna_Abundance.csv")
+ESA_Megafauna_Abundance <- read_csv("data/raw/ESA_Megafauna_Abundance.csv",
+                                    col_types = cols(
+                                      "Growth Rate(%)" = col_character()))
 
 
 # Part 2: Clean "Marine Megafauna Consumers" dataset ---------------------
@@ -73,13 +76,18 @@ subsidies <- Marine_Megafauna_Subsidies %>%
 abundance <- Marine_Megafauna_Abundance %>% 
   clean_names()
 
-# Part 5: Export cleaned datasets ----------------------------------------
+# Part 5: Clean "Marine Megafauna ESA" dataset ---------------------------
+
+ESA_abundance <- ESA_Megafauna_Abundance %>% 
+  clean_names()
+
+# Part 6: Export cleaned datasets ----------------------------------------
 
 write_csv(consumers, "data/processed/consumers.csv")
 write_csv(filtered_consumers, "data/processed/filtered_consumers.csv")
 write_csv(subsidies, "data/processed/subsidies.csv")
 write_csv(abundance, "data/processed/abundance.csv")
-
+write_csv(ESA_abundance, "data/processed/ESA_abundance.csv")
 
 #######################
 # Summarize Data ######
