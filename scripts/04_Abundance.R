@@ -273,7 +273,7 @@ sea_turtle_gam_predictions <- data.frame(
 
 ESA_cetacean <- ggplot(data = filter(ESA_marine_megafauna, taxa == "Cetacean"), 
        aes(x=time))+
-  geom_point(alpha = .4, pch = 16, color = "#440154FF", 
+  geom_point(alpha = .25, pch = 16, color = "#440154FF", size = 1,  
              aes(y=percent_of_max))+
   geom_line(data = cetacean_gam_predictions, aes(y=fit), 
             color = "#440154FF", linewidth = 1)+
@@ -285,6 +285,8 @@ ESA_cetacean <- ggplot(data = filter(ESA_marine_megafauna, taxa == "Cetacean"),
   theme(panel.border = element_rect(colour = "black", fill=NA, linewidth=1.5),
         axis.text.x = element_blank())
 
+ESA_cetacean
+
 ggsave("output/extra_plots/ESA_cetacean.png", ESA_cetacean, 
        width = 3, height = 2, units = "in", dpi = 600)
 
@@ -292,7 +294,7 @@ ggsave("output/extra_plots/ESA_cetacean.png", ESA_cetacean,
 
 ESA_pinniped <- ggplot(data = filter(ESA_marine_megafauna, taxa == "Pinniped"), 
        aes(x=time))+
-  geom_point(alpha = .4, pch = 16, color = "#414487FF", 
+  geom_point(alpha = .25, pch = 16, color = "#414487FF", size = 1,
              aes(y=percent_of_max))+
   geom_line(data = pinniped_gam_predictions, aes(y=fit), 
             color = "#414487FF", linewidth = 1)+
@@ -312,7 +314,7 @@ ggsave("output/extra_plots/ESA_pinniped.png", ESA_pinniped,
 
 ESA_otter_sirenian <- ggplot(data = filter(ESA_marine_megafauna, taxa == "Sea otters and sirenians"), 
        aes(x=time))+
-  geom_point(alpha = .4, pch = 16, color = "#1d918c", 
+  geom_point(alpha = .25, pch = 16, color = "#1d918c", size = 1,
              aes(y=percent_of_max))+
   geom_line(data = otter_sirenian_gam_predictions, aes(y=fit), 
             color = "#1d918c", linewidth = 1)+
@@ -333,7 +335,7 @@ ggsave("output/extra_plots/ESA_otter_sirenian.png", ESA_otter_sirenian,
 
 ESA_sea_turtle <- ggplot(data = filter(ESA_marine_megafauna, taxa == "Sea turtle"), 
        aes(x=time))+
-  geom_point(alpha = .4, pch = 16, color = "#7AD151FF", 
+  geom_point(alpha = .25, pch = 16, color = "#7AD151FF", size = 1,
              aes(y=percent_of_max))+
   geom_line(data = sea_turtle_gam_predictions, aes(y=fit), 
             color = "#7AD151FF", linewidth = 1)+
