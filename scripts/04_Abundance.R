@@ -36,20 +36,22 @@ A_df <- abundance %>%
 
 #Plot panel A
 
-panel_A <- ggplot(A_df, aes(x=species_group, y=mean, fill = period))+
-  geom_bar(stat="identity", position = "dodge")+  
-  geom_errorbar(aes(ymin = mean-se, ymax = mean+se), 
-                position = position_dodge(width = 1), 
-                width = .2, color = "grey20")+
+panel_A <- ggplot(A_df, aes(x=species_group, y=mean, fill = species_group, alpha = period))+
+  geom_bar(stat="identity", position = position_dodge(width = .9))+  
+  geom_errorbar(aes(ymin = mean-se, ymax = mean+se, group = period),
+                position = position_dodge(width = .9), 
+                width = .2, color = "grey20", alpha = 1)+
 #  coord_flip()+
   scale_x_discrete(labels = c("Cetaceans", "Pinnipeds","Sea otters\nand sirenians","Sea turtles"))+
   scale_y_continuous(breaks = c(0,10,20,30,40))+
-  scale_fill_manual(values = c("grey70", "grey40"), labels = c("Lowest abundance", "Most recent\nabundance"))+
+  scale_fill_manual(values = c("#440154FF", "#414487FF", "#1d918c", "#7AD151FF"), guide = "none")+
+  scale_alpha_manual(values = c(low = 0.4, now = .9),
+                     labels = c("Lowest abundance", "Most recent\nabundance")) +
   theme_few()+
-  labs(x="", y="Percent of historical baseline abundance", fill = "")+
+  labs(x="", y="Percent of historical baseline abundance", fill = "", alpha = "")+
   theme(panel.border = element_rect(colour = "black", fill=NA, linewidth=1.5),
-   #     legend.position = "none")
-  )
+        #legend.position = "none"
+        )
 panel_A
 
 #Make legend for panel B ----
