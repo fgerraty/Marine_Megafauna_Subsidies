@@ -15,6 +15,44 @@ ESA_abundance <- read_csv("data/processed/ESA_abundance.csv",
 # PART 2: Abundance Plot Panel A -----------------------------------------
 
 A_df <- abundance %>% 
+  select(record_lotze_worm, species_group, percent_left_low, percent_left_now) %>% 
+  #Combine sea otters and sirenian records
+  mutate(species_group = if_else(species_group %in% c("Otters", "Sirenia"), "Fissipeds and Sirenians", species_group),
+         baseline = 100) %>% 
+  #Rename columns to be more tidy
+  rename(low = percent_left_low, 
+         now = percent_left_now) %>% 
+  pivot_longer(cols = c(baseline, low, now), 
+               values_to = "percent_left", names_to="period") %>% 
+  mutate(period = factor(period, levels = c("baseline", "low", "now")),
+         species_group = factor(species_group, levels = c("Whales", "Pinnipeds", "Fissipeds and Sirenians", "Sea turtles")))
+
+
+panel_A <- ggplot(A_df, mapping = aes(x=period, y=percent_left))+
+  geom_path(aes(group = record_lotze_worm),color="grey70",
+            linewidth = 0.4, alpha = 0.3, 
+            position = position_jitter(width = 0.1, seed = 999))+
+  geom_point(color="grey70", alpha = .3, shape = 16,
+             position = position_jitter(width = 0.1, seed = 999))+
+  theme_few()+
+  stat_summary(geom = "pointrange", 
+               fun.data = "mean_cl_boot",
+               color = "black",
+               linewidth = 1)+
+  scale_x_discrete(labels = c("Historical\nbaseline", "Lowest\nabundance", "Most recent\nabundance"), expand = c(0.1,0.1))+
+  labs(x="", y="Percent of historical baseline abundance")+
+  theme(panel.border = element_rect(colour = "black", fill=NA, linewidth=1.5),
+        # axis.text.x = element_text(angle = 25, hjust = 1)
+  )
+
+panel_A
+
+ggsave("output/extra_plots/abundance_A.png", panel_A, 
+       width = 3, height = 4, units = "in")
+
+# PART 3: Abundance Plot Panel B -----------------------------------------
+
+B_df <- abundance %>% 
   #Select relevant columns 
   select(species_group, percent_left_low, percent_left_now) %>% 
   #Rename columns to be more tidy
@@ -34,9 +72,9 @@ A_df <- abundance %>%
             .groups = "drop")
 
 
-#Plot panel A
+#Plot panel B
 
-panel_A <- ggplot(A_df, aes(x=species_group, y=mean, fill = species_group, alpha = period))+
+panel_B <- ggplot(B_df, aes(x=species_group, y=mean, fill = species_group, alpha = period))+
   geom_bar(stat="identity", position = position_dodge(width = .9))+  
   geom_errorbar(aes(ymin = mean-se, ymax = mean+se, group = period),
                 position = position_dodge(width = .9), 
@@ -52,29 +90,29 @@ panel_A <- ggplot(A_df, aes(x=species_group, y=mean, fill = species_group, alpha
   theme(panel.border = element_rect(colour = "black", fill=NA, linewidth=1.5),
         #legend.position = "none"
         )
-panel_A
+panel_B
 
 #Make legend for panel B ----
 
-legend_A <- get_legend(panel_A) %>% 
+legend_B <- get_legend(panel_B) %>% 
             as_ggplot()
 
-legend_A
+legend_B
 
-ggsave("output/extra_plots/abundance_A_legend.png", legend_A, 
+ggsave("output/extra_plots/abundance_B_legend.png", legend_B, 
        width = 3, height = 3, units = "in")
 
-panel_A <- panel_A+
+panel_B <- panel_B+
   theme(legend.position = "none")
 
-panel_A
+panel_B
 
 
-ggsave("output/extra_plots/abundance_A.png", panel_A, 
-       width = 5, height = 4, units = "in")
+ggsave("output/extra_plots/abundance_B.png", panel_B, 
+       width = 4, height = 4, units = "in")
 
 
-# PART 2: Abundance Plot Panel B-E -----------------------------------------
+# PART 2: Abundance Plot Panel C-F -----------------------------------------
 
 ESA_marine_megafauna <- ESA_abundance %>% 
   clean_names %>% 
@@ -290,7 +328,7 @@ ESA_cetacean <- ggplot(data = filter(ESA_marine_megafauna, taxa == "Cetacean"),
 ESA_cetacean
 
 ggsave("output/extra_plots/ESA_cetacean.png", ESA_cetacean, 
-       width = 3, height = 2, units = "in", dpi = 600)
+       width = 3.5, height = 2, units = "in", dpi = 600)
 
 # Pinniped Plot ---------------------------------------------------------------
 
@@ -310,7 +348,7 @@ ESA_pinniped <- ggplot(data = filter(ESA_marine_megafauna, taxa == "Pinniped"),
         axis.text.y = element_blank())
 
 ggsave("output/extra_plots/ESA_pinniped.png", ESA_pinniped, 
-       width = 2.8, height = 2, units = "in", dpi = 600)
+       width = 3.3, height = 2, units = "in", dpi = 600)
 
 # Sea otter and sirenian plot --------------------------------------------------
 
@@ -331,7 +369,7 @@ ESA_otter_sirenian <- ggplot(data = filter(ESA_marine_megafauna, taxa == "Sea ot
   )
 
 ggsave("output/extra_plots/ESA_otter_sirenian.png", ESA_otter_sirenian, 
-       width = 3, height = 2.2, units = "in")
+       width = 3.5, height = 2.2, units = "in")
 
 # Sea turtle plot --------------------------------------------------------------
 
@@ -349,4 +387,5 @@ ESA_sea_turtle <- ggplot(data = filter(ESA_marine_megafauna, taxa == "Sea turtle
         axis.text.y = element_blank())
 
 ggsave("output/extra_plots/ESA_sea_turtle.png", ESA_sea_turtle, 
-       width = 2.8, height = 2.2, units = "in")
+       width = 3.3, height = 2.2, units = "in")
+
