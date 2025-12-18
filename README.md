@@ -57,7 +57,7 @@ In our literature review we identified 224 unique combinations (235 total, but t
 -   Egg Consumption: We identified 88 unique species pairs involving all seven sea turtle species and their terrestrial vertebrate egg predators, and 51 unique sea turtle egg consumer species total. The egg predators were taxonomically diverse, spanning 22 families of mammals, birds, and reptiles. The most common nest predators were canids (Canidae, n=20), mustelids (Mustelidae, n=11), monitor lizards (Varanidae, n=8), and colubrid snakes (Colubridae, n=7).
 
 | Marine Megafauna Species | Consumer Species | Interaction Type(s) | Source(s) |
-|:---|:---|:---|:---|
+|:-----------------|:-----------------|:-----------------|:-----------------|
 | **Cetaceans** |  |  |  |
 | "cetacean" | Brown hyaena | Scavenging | Kuhn et al. (2010) |
 | "dolphin" | Jaguar | Scavenging | Castañeda et al. (2013) |
@@ -304,7 +304,7 @@ In our literature review we identified 224 unique combinations (235 total, but t
 In our literature review we identified 63 case studies documenting one or more ecological consequences of marine megafauna subsidies to terrestrial ecosystems. These are outlined below, with more details and reference links accessible at [**data/processed/subsidies.csv**](https://github.com/fgerraty/Marine_Megafauna_Subsidies/blob/main/data/processed/subsidies.csv)
 
 | Type of Ecological Effect | Description | authors |
-|:---|:---|:---|
+|:-----------------------|:-----------------------|:-----------------------|
 | Other | Sea otter population declines were associated with changes in diet, dietary diversity, and breeding success and productivity of bald eagles in the Aleutian islands. | Anthony et al. (2008) |
 | Consumer behavior | Polar bears, when on land, are spatially aggregated near scavenge subsidies in the form of subsistence-hunted bowhead whale “bone piles.” | Atwood et al. (2016) |
 | Consumer health | Marine vertebrate consumption is associated with elevated total mercury (THg) levels among arctic foxes in island and mainland ecosystems in the Commander Islands and Iceland. | Bocharova et al. (2013) |
