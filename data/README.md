@@ -150,6 +150,10 @@
 
     -   **Ref_No_Lotze_Worm -** Record reference number from Lotze and Worm 2009.
 
+<!-- -->
+
+-   [**ESA_Megafauna_Abundance.csv**](https://github.com/fgerraty/Marine_Megafauna_Subsidies/blob/main/data/raw/ESA_Megafauna_Abundance.csv) **-** The supplemental data from [Valdivia et al. (2019)](https://doi.org/10.1371/journal.pone.0210164). See supporting information within Valdivia et al. (2019) for detailed metadata description.
+
 #### Folder ["processed"](https://github.com/fgerraty/Marine_Megafauna_Subsidies/tree/main/data/processed) houses the following data files
 
 -   [**consumers.csv**](https://github.com/fgerraty/Marine_Megafauna_Subsidies/blob/main/data/processed/consumers.csv) **-** A complete, clean version of the *Marine_Megafauna_Consumers.csv* raw data file, which includes all of the terrestrial vertebrate consumers of marine megafauna captured in our synthetic literature review (see manuscript for review methods).
@@ -165,3 +169,7 @@
     Columns in this file are the same as *Marine_Megafauna_Subsidies.csv* except in this version they are all lowercase, with words separated by underlines (e.g. "Marine Megafauna Group" is now "marine_megafauna_group")
 
 -   [**abundance.csv**](https://github.com/fgerraty/Marine_Megafauna_Subsidies/blob/main/data/processed/abundance.csv) - A clean version of the *Megafauna_Abundance.csv* raw data file derived from Lotze and Worm (2009). Columns in this file are the same as *Megafauna_Abundance.csv* except in this version they are all lowercase, with words separated by underlines.
+
+<!-- -->
+
+-   [ESA_abundance.csv](https://github.com/fgerraty/Marine_Megafauna_Subsidies/blob/main/data/processed/ESA_abundance.csv) - A clean version of the *ESA_Megafauna_Abundance.csv* raw data file derived from [Valdivia et al. (2019)](https://doi.org/10.1371/journal.pone.0210164). Columns in this file are the same as *ESA_Megafauna_Abundance.csv* except in this version they are all lowercase, with words separated by underlines.
