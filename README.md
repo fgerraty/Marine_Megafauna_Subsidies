@@ -20,8 +20,6 @@ There are four primary R scripts required to run all console and data preparatio
 
 -   **04_Abundance.R** generates Figure 4.
 
-![](output/extra_plots/analysis_pipeline.png)
-
 These scripts depend on the following R packages: tidyverse (v2.0.0), janitor (v2.2.1), ggalluvial (v0.12.5), ggpubr (v0.6.0), sf (v1.0.20), rnaturalearth (v1.0.1), rnaturalearthdata (v1.0.0), ggthemes (v5.1.0).
 
 ------------------------------------------------------------------------
