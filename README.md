@@ -1,6 +1,6 @@
 # Historical and potential future importance of marine megafauna subsidies to terrestrial ecosystems
 
-**FD Gerraty**, CA Braman, JE Dugan, K Elder, KA Emery, BS Halpern, WN Heady, EHT Hiroyasu, GB Lewin, ES Nielsen, RY Oliver, M Reynolds, A Wegmann, RC Williams, R Wynn-Grant, HS Young, ZL Zilz (2026). Historical and potential future importance of marine megafauna subsidies to terrestrial ecosystems. *Frontiers in Ecology and the Environment.*
+**FD Gerraty**, CA Braman, JE Dugan, K Elder, KA Emery, BS Halpern, WN Heady, EHT Hiroyasu, GB Lewin, ES Nielsen, RY Oliver, M Reynolds, A Wegmann, RC Williams, R Wynn-Grant, HS Young, ZL Ziz (2026). Historical and potential future importance of marine megafauna subsidies to terrestrial ecosystems. *Frontiers in Ecology and the Environment.*
 
 Marine megafauna connect land and sea by serving as large, calorically-rich food sources for terrestrial consumers and by transferring marine-derived nutrients onto land as eggs, placenta, excreta, and carcasses. In this project, we review the role of marine megafauna - particularly marine mammals and sea turtles - as connectors of marine and terrestrial ecosystems along global coastlines. We compile published literature to describe the diversity of terrestrial consumers that exploit marine megafauna as a food source, as well as descriptions of documented ecological consequences resulting from megafauna-mediated nutrient subsidies from marine to terrestrial ecosystems. Here, we provide an overview of the datasets and scripts associated with this repository.
 
@@ -55,7 +55,7 @@ In our literature review we identified 224 unique combinations (235 total, but t
 -   Egg Consumption: We identified 88 unique species pairs involving all seven sea turtle species and their terrestrial vertebrate egg predators, and 51 unique sea turtle egg consumer species total. The egg predators were taxonomically diverse, spanning 22 families of mammals, birds, and reptiles. The most common nest predators were canids (Canidae, n=20), mustelids (Mustelidae, n=11), monitor lizards (Varanidae, n=8), and colubrid snakes (Colubridae, n=7).
 
 | Marine Megafauna Species | Consumer Species | Interaction Type(s) | Source(s) |
-|:-----------------|:-----------------|:-----------------|:-----------------|
+|:---|:---|:---|:---|
 | **Cetaceans** |  |  |  |
 | "cetacean" | Brown hyaena | Scavenging | Kuhn et al. (2010) |
 | "dolphin" | Jaguar | Scavenging | Castañeda et al. (2013) |
@@ -302,7 +302,7 @@ In our literature review we identified 224 unique combinations (235 total, but t
 In our literature review we identified 63 case studies documenting one or more ecological consequences of marine megafauna subsidies to terrestrial ecosystems. These are outlined below, with more details and reference links accessible at [**data/processed/subsidies.csv**](https://github.com/fgerraty/Marine_Megafauna_Subsidies/blob/main/data/processed/subsidies.csv)
 
 | Type of Ecological Effect | Description | authors |
-|:-----------------------|:-----------------------|:-----------------------|
+|:---|:---|:---|
 | Other | Sea otter population declines were associated with changes in diet, dietary diversity, and breeding success and productivity of bald eagles in the Aleutian islands. | Anthony et al. (2008) |
 | Consumer behavior | Polar bears, when on land, are spatially aggregated near scavenge subsidies in the form of subsistence-hunted bowhead whale “bone piles.” | Atwood et al. (2016) |
 | Consumer health | Marine vertebrate consumption is associated with elevated total mercury (THg) levels among arctic foxes in island and mainland ecosystems in the Commander Islands and Iceland. | Bocharova et al. (2013) |
